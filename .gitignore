@@ -1,3 +1,7 @@
+## Custom files
+*.pdf
+!qyxf-book.pdf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
