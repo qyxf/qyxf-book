@@ -42,8 +42,9 @@
   \RequirePackage{amsmath}  % 防止冲突
   \RequirePackage{unicode-math} % 数学字体
   \setmathfont{Cambria Math}  % 与正文字体相适应的数学字体
-\else  % 使用默认字体
+\else  % 使用 Utopia 字体包
   \RequirePackage[heading]{ctex}
+  \RequirePackage{fourier}
   \RequirePackage{amsmath}
 \fi
 
