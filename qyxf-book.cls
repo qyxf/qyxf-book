@@ -55,6 +55,12 @@
 \RequirePackage{tcolorbox,tabu}
 \tcbuselibrary{listings,theorems,skins}
 
+% tcolorbox 样式设定
+\tcbset{
+  colback=white,
+  colframe=black
+}
+
 % 自定义命令 / 环境
 \newcommand{\exercise}[1]{\noindent\tcbox[on line,top=0mm,bottom=0mm,right=0mm,left=0mm]{\bfseries 练习#1}\ }
 \newcommand{\note}{\noindent\textbf{注记}\ }
@@ -117,8 +123,8 @@
     \node at (0,0) {\pgfornamenthan[scale=0.05]{58}};
     \node[opacity=0.2, draw opacity=0] at (0.02,-0.03) {\pgfornamenthan[scale=0.05]{58}};
   \end{tikzpicture}}\\[-1ex]}
-\fancyhead[EC]{\fangsong\nouppercase\leftmark}
-\fancyhead[OC]{\fangsong\nouppercase\rightmark}
+\fancyhead[EC]{\itshape\nouppercase\leftmark}
+\fancyhead[OC]{\itshape\nouppercase\rightmark}
 \fancyhead[EL,OR]{\bf\thepage}
 \fancyhead[ER,OL]{}
 \fancyfoot[C]{\if@decoration\footdeco\else\vspace{1ex}\fi\textsc{Qian Yuan Xue Fu}}
@@ -139,10 +145,22 @@
 \RequirePackage[scale=1.1]{ccicons}
 
 % 若干 metadata
-\newtoks\subtitle
-\newtoks\typo
-\newtoks\version
-\newtoks\sourcepage
+\newcommand{\@subtitle}{}
+\newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}
+\newcommand{\@typo}{}
+\newcommand{\typo}[1]{\gdef\@typo{#1}}
+\newcommand{\@version}{}
+\newcommand{\version}[1]{\gdef\@version{#1}}
+\newcommand{\@sourcepage}{}
+\newcommand{\sourcepage}[1]{\gdef\@sourcepage{#1}}
+
+% 许可证信息
+\newcommand{\license}{\ccbyncnd\ CC BY-NC-ND 4.0 协议}
+\newcommand{\licenselink}{https://creativecommons.org/licenses/by-nc-nd/4.0/}
+\newcommand{\licensecontent}{%
+使用者可以在给出作者署名及资料来源的前提下对本作品进行转载，%
+但不得对本作品进行修改，亦不得基于本作品进行二次创作，%
+不得将本作品运用于商业用途。}
 
 % 标题样式重定义
 \renewcommand*{\maketitle}{%
@@ -150,7 +168,7 @@
   pageanchor=false,
   pdfauthor=\@author,
   pdftitle=\@title,
-  pdfsubject={\@author: \@title - \the\subtitle},
+  pdfsubject={\@author: \@title\ifdefempty\@subtitle{}{ - \textit{\@subtitle}}},
   pdfkeywords={qyxf, book},
   pdfcreator={XeLaTeX with qyxf-book class}
 }
@@ -158,25 +176,24 @@
 \phantom{s}
 \vspace{3cm}
 \begin{center}\large
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{black!90},%
-left=20pt,bottom=0.5ex,after skip=0pt]
-{\fontsize{40pt}{\baselineskip}\selectfont\bfseries\@title}\\[0.5\baselineskip]
-{\Huge\itshape\the\subtitle}
+\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{black},%
+left=20pt,top=1ex,bottom=1ex,after skip=0pt]
+{\fontsize{40pt}{\baselineskip}\selectfont\bfseries\@title}
+\ifdefempty\@subtitle{}{\\[1ex]{\Huge\itshape\@subtitle}}
 \end{tcolorbox}
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{black!40},%
-left=20pt,top=0.5ex,before skip=0pt]
-{\Large 作者：\@author\\[0.2\baselineskip]
-\@date}
+\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{black!50},%
+left=20pt,top=2ex,bottom=1ex,before skip=0pt]
+{\LARGE\itshape\@author}\\[1ex]\Large\@date
 \end{tcolorbox}
 \vfill
-\texttt{钱学森书院学业辅导中心}\\[0.5\baselineskip]
-\textsc{Qian Yuan Xue Fu}\\[0.5\baselineskip]
-{XI'AN JIAOTONG UNIVERSITY}
+\texttt{钱学森书院学业辅导中心}\\[1ex]
+\textsc{Qian Yuan Xue Fu}\\[1ex]
+\textit{Xi'an Jiaotong University}
 \end{center}
 \begin{tikzpicture}[remember picture,overlay]
   \begin{pgfonlayer}{background}
   \node at ($(current page.east) +(0in,0in)$) {%
-  \includegraphics[width=0.8\textwidth]{cover.png}};
+  \includegraphics[width=0.8\textwidth]{cover.pdf}};
   \end{pgfonlayer}
 \end{tikzpicture}
 \end{titlepage}
@@ -185,25 +202,22 @@ left=20pt,top=0.5ex,before skip=0pt]
 \hypersetup{pageanchor=true}
 \phantom{s}\vfill
 \begin{tcolorbox}[title={\bfseries 作品信息}]
-\ding{228} \textbf{标题：}\@title{} - \textit{\the\subtitle}\\
+\ding{228} \textbf{标题：}\@title{}
+\ifdefempty\@subtitle{}{- \textit{\@subtitle}}\\
 \ding{228} \textbf{作者：}\@author\\
-\ding{228} \textbf{校对排版：}\the\typo\\
+\ifdefempty{\@typo}{}{\ding{228} \textbf{校对排版：}\@typo\\}
 \ding{228} \textbf{出品时间：}\@date\\
 \ding{228} \textbf{总页数：}\pageref{LastPage}
 \end{tcolorbox}
 \begin{tcolorbox}[title={\bfseries 许可证说明}]
-\centerline{\tcbox{\ccbyncnd\ \fangsong 知识共享 (Creative Commons) BY-NC-ND 4.0 协议}%
-\\[0.3\baselineskip]}
-本作品采用 \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\textbf{CC协议}}
-进行许可。使用者可以在给出作者署名及资料来源的前提下对本作品进行转载，
-但不得对本作品进行修改，亦不得基于本作品进行二次创作，
-不得将本作品运用于商业用途。
+本作品采用\href{\licenselink}{\bfseries\license}%
+进行许可。\licensecontent
 \end{tcolorbox}
 \if@opensource
   \begin{tcolorbox}
   本作品已发布于GitHub之上，发布地址为：\\
-  \centerline{\the\sourcepage}
-  本作品的版本号为\textsf{\the\version}。
+  \centerline{\@sourcepage}
+  本作品的版本号为\textsf{\@version}。
   \end{tcolorbox}
 \fi
 \newpage
