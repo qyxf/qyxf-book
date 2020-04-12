@@ -1,14 +1,13 @@
 \documentclass[
     b5paper,  % 默认为 a4paper
-    %sourcefont, % 电脑上未装齐对应字体时，请勿打开该选项
     %opensource, % 输出开源信息
     decoration,  % 打开装饰
-]{qyxf-book}  
+]{qyxf-book}
 
 \title{高等数学入门}
-\subtitle{Advanced Maths Primer}
+\subtitle{Advanced Maths Primer}  % 可选
 \author{白山雁}
-\typo{红山雁}  % 排版人员信息
+\typo{红山雁}  % 排版人员信息，选填
 \date{2019 年 2 月 29 日}
 
 % 开启 opensource 选项时，以下信息必须填写
@@ -23,12 +22,18 @@
 \chapter{极限理论}
 \section{极限的定义}
 
-极限是一种过程……
+极限（limit）是一种过程……正如式 \eqref{eq:limit} 所言：
 
-\[ \lim_{n\to\infty}\frac1n = 0 \]
+\begin{equation}\label{eq:limit}
+\lim_{n\to\infty}\frac1{\sqrt n} = 0
+\end{equation}
 
 \section{极限的计算方法}
 \subsection{观察法}
+
+\begin{theorem}
+    任何极限都可以直接观察得出。
+\end{theorem}
 
 \chapter{一元微分学}
 
