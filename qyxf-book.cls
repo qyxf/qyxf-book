@@ -29,24 +29,12 @@
 \ProcessOptions
 
 % 字体处理
-\if@sourcefont  % 启用自定义字体
-  \PassOptionsToPackage{SlantFont}{xeCJK}
-  \RequirePackage[heading,fontset=none]{ctex}
-  \setCJKmainfont{思源宋体}
-  \setCJKsansfont{思源黑体}
-  \newCJKfontfamily[zhfs]\fangsong{FangSong}  % 调用仿宋
-  \renewcommand\CJKttdefault{zhfs}
-  \setmainfont{Cambria}       % 目前默认使用的 serif 字体
-  \setsansfont{Calibri}       % 目前默认使用的 sans-serif 字体
-  \setmonofont{Courier New}   % 目前默认使用的等宽字体
-  \RequirePackage{amsmath}  % 防止冲突
-  \RequirePackage{unicode-math} % 数学字体
-  \setmathfont{Cambria Math}  % 与正文字体相适应的数学字体
-\else  % 使用 Utopia 字体包
-  \RequirePackage[heading]{ctex}
-  \RequirePackage{fourier}
-  \RequirePackage{amsmath}
+\if@sourcefont  % 不再配置自定义字体，请自行配置
+  \ClassWarning{qyxf-book}{The option `sourcefont' is deprecated.}
 \fi
+\RequirePackage[heading]{ctex}
+\RequirePackage{fourier}
+\RequirePackage{amsmath}
 
 % 脚注样式调整
 \renewcommand{\thefootnote}{\textbf{(\arabic{footnote})}}
