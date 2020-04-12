@@ -36,6 +36,11 @@
 \RequirePackage{fourier}
 \RequirePackage{amsmath}
 
+% etoolbox
+\RequirePackage{etoolbox}
+\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[boxrule=1pt,arc=0.5mm]}
+\AfterEndEnvironment{theorem}{\end{tcolorbox}}
+
 % 脚注样式调整
 \renewcommand{\thefootnote}{\textbf{(\arabic{footnote})}}
 
@@ -55,6 +60,7 @@
 \newcommand{\note}{\noindent\textbf{注记}\ }
 \newcommand{\solve}{\noindent\textbf{解}\ }
 \newcommand{\analysis}{\noindent\textbf{分析}\ }
+\newtheorem{theorem}{定理}
 
 % 页面设置
 \RequirePackage{geometry}
