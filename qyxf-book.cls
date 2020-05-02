@@ -163,13 +163,21 @@
 \newcommand{\@sourcepage}{}
 \newcommand{\sourcepage}[1]{\gdef\@sourcepage{#1}}
 
+% 组织信息
+\newcommand{\@orginfo}{
+  \textit{钱学森书院学业辅导中心}\\[1ex]
+  \textsc{Xi'an Jiaotong University}
+}
+\newcommand{\org}[1]{\gdef\@orginfo{#1}}
+
 % 许可证信息
-\newcommand{\license}{\ccbyncnd\ CC BY-NC-ND 4.0 协议}
-\newcommand{\licenselink}{https://creativecommons.org/licenses/by-nc-nd/4.0/}
-\newcommand{\licensecontent}{%
+\newcommand{\@licenseinfo}{%
+本作品采用 \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}%
+{\bfseries CC BY-NC-ND 4.0 协议}进行许可。
 使用者可以在给出作者署名及资料来源的前提下对本作品进行转载，%
 但不得对本作品进行修改，亦不得基于本作品进行二次创作，%
 不得将本作品运用于商业用途。}
+\newcommand{\license}[1]{\gdef\@licenseinfo{#1}}
 
 % 标题样式重定义
 \renewcommand*{\maketitle}{%
@@ -192,16 +200,14 @@ left=20pt,top=1ex,bottom=1ex,after skip=0pt]
 \end{tcolorbox}
 \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{black!50},%
 left=20pt,top=2ex,bottom=1ex,before skip=0pt]
-{\LARGE\itshape\@author}\\[1ex]\Large\@date
+{\LARGE\itshape\@author}\\\Large\@date
 \end{tcolorbox}
 \vfill
-\texttt{钱学森书院学业辅导中心}\\[1ex]
-\textsc{Qian Yuan Xue Fu}\\[1ex]
-\textit{Xi'an Jiaotong University}
+\@orginfo
 \end{center}
 \begin{tikzpicture}[remember picture,overlay]
   \begin{pgfonlayer}{background}
-  \node at ($(current page.east) +(0in,0in)$) {%
+  \node at ($(current page.east) - (0.25in, 1in)$) {%
   \includegraphics[width=0.8\textwidth]{cover.pdf}};
   \end{pgfonlayer}
 \end{tikzpicture}
@@ -218,10 +224,11 @@ left=20pt,top=2ex,bottom=1ex,before skip=0pt]
 \ding{228} \textbf{出品时间：}\@date\\
 \ding{228} \textbf{总页数：}\pageref{LastPage}
 \end{tcolorbox}
-\begin{tcolorbox}[title={\bfseries 许可证说明}]
-本作品采用\href{\licenselink}{\bfseries\license}%
-进行许可。\licensecontent
-\end{tcolorbox}
+\ifdefempty\@licenseinfo{}{
+  \begin{tcolorbox}[title={\bfseries 许可证说明}]
+  \@licenseinfo
+  \end{tcolorbox}
+}
 \if@opensource
   \begin{tcolorbox}
   本作品已发布于GitHub之上，发布地址为：\\
