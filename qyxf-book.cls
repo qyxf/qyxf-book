@@ -38,8 +38,6 @@
 
 % etoolbox
 \RequirePackage{etoolbox}
-\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[boxrule=1pt,arc=0.5mm]}
-\AfterEndEnvironment{theorem}{\end{tcolorbox}}
 
 % 脚注样式调整
 \renewcommand{\thefootnote}{\textbf{(\arabic{footnote})}}
@@ -53,20 +51,31 @@
 \RequirePackage{tikz}
 \usetikzlibrary{calc,backgrounds,shadows}
 \RequirePackage{tcolorbox,tabu}
-\tcbuselibrary{listings,theorems,skins}
+\tcbuselibrary{listings,theorems,skins,breakable}
 
 % tcolorbox 样式设定
 \tcbset{
   colback=white,
-  colframe=black
+  colframe=black,
+  breakable
 }
 
-% 自定义命令 / 环境
+% 自定义命令
 \newcommand{\exercise}[1]{\noindent\tcbox[on line,top=0mm,bottom=0mm,right=0mm,left=0mm]{\bfseries 练习#1}\ }
 \newcommand{\note}{\noindent\textbf{注记}\ }
 \newcommand{\solve}{\noindent\textbf{解}\ }
 \newcommand{\analysis}{\noindent\textbf{分析}\ }
+
+% 自定义定理环境及样式设定
 \newtheorem{theorem}{定理}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{define}{定义}
+\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[boxrule=1pt,arc=0.5mm]}
+\AfterEndEnvironment{theorem}{\end{tcolorbox}}
+\BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[boxrule=1pt,arc=0.5mm,colframe=black!40]}
+\AfterEndEnvironment{lemma}{\end{tcolorbox}}
+\BeforeBeginEnvironment{define}{\begin{tcolorbox}[boxrule=1pt,arc=3mm,outer arc=0.5mm]}
+\AfterEndEnvironment{define}{\end{tcolorbox}}
 
 % 页面设置
 \RequirePackage{geometry}
