@@ -2,7 +2,7 @@
 
 `qyxf-book` 是由钱院学辅开发的、用于排版中等以上体量资料的 LaTeX 文类。目前，该模板已被用于编写了[《大学物理题解》](https://github.com/qyxf/university-physics)、《理论力学题解》、[《计算方法撷英》](https://qyxf.site/2019/11/26/notes-on-computing-methods-published)等诸多资料。
 
-本份模板原在 [qyxf-sets 宏集](https://github.com/qyxf/qyxf-sets)项目中开发；因维护成本不高、效果不理想，现独立维护，并不再使用之前的 doc/doctrip 方式。采用 MIT 协议许可，请大家放心地 fork、修改。
+本份模板原在 [qyxf-sets 宏集](https://github.com/qyxf/qyxf-sets)项目中开发；因维护成本过高、效果不理想，现独立维护，并不再使用之前的 doc/doctrip 方式。现采用 MIT 协议许可，请大家放心地 fork、修改。
 
 > 本仓库中附有一份文档模板 `demo.tex`。请各位用户参考该文件编写文档，以获得最佳体验。
 
