@@ -1,7 +1,5 @@
 ## Custom files
-*.pdf
-!qyxf-book.pdf
-!cover.pdf
+demo.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
