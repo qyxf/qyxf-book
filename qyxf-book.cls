@@ -7,18 +7,12 @@
 \ProvidesClass{qyxf-book}
   [2020/01/08 v2.2 Qian Yuan Xue Fu book template]
 \typeout{The book template provided by Qian Yuan Xue Fu}
-\LoadClass[10pt, twoside, openany]{book}
+\LoadClass{ctexbook}
 
 % 选项定制与处理
 \newif\if@decoration
 \newif\if@opensource
 \newif\if@sourcefont
-\DeclareOption{a4paper}{
-  \setlength\paperheight{297mm}%
-  \setlength\paperwidth{210mm}}
-\DeclareOption{b5paper}{
-  \setlength\paperheight{250mm}%
-  \setlength\paperwidth{176mm}}
 \DeclareOption{color}{}
 \DeclareOption{parskip}{
   \setlength\parskip{0.2\baselineskip}}
@@ -26,13 +20,14 @@
 \DeclareOption{plain}{\@decorationfalse}
 \DeclareOption{opensource}{\@opensourcetrue}
 \DeclareOption{sourcefont}{\@sourcefonttrue}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions
 
 % 字体处理
 \if@sourcefont  % 不再配置自定义字体，请自行配置
   \ClassWarning{qyxf-book}{The option `sourcefont' is deprecated.}
 \fi
-\RequirePackage[heading]{ctex}
+\if@decoration
 \RequirePackage{fourier}
 \RequirePackage{amsmath}
 
