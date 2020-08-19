@@ -25,15 +25,17 @@
 
 % 选项定制与处理
 \DeclareStringOption[basic]{colorscheme}
+\DeclareBoolOption[true]{newtx}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessKeyvalOptions*
 \ProcessOptions
 
 % 字体处理
-\setmainfont{Libertinus Serif}
-\setsansfont{Libertinus Sans}
-\setmonofont{FandolFang-Regular}
-\RequirePackage{newtxmath}
 \RequirePackage{amsmath}
+\ifQYXF@newtx
+  \RequirePackage{newtxtext}
+  \RequirePackage{newtxmath}
+\fi
 \RequirePackage{hologo}
 
 % etoolbox
