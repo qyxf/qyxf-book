@@ -211,10 +211,11 @@
   \textsc{Xi'an Jiaotong University}
 }
 \newcommand{\org}[1]{\gdef\@orginfo{#1}}
-
-% 许可证信息
+\newcommand{\@footorginfo}{\textsc{Qian Yuan Xue Fu}}
+\newcommand{\footorg}[1]{\gdef\@footorginfo{#1}}
 \newcommand{\@licenseinfo}{%
-本作品采用 \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}%
+本作品采用%
+\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}%
 {\bfseries CC BY-NC-ND 4.0 协议}进行许可。
 使用者可以在给出作者署名及资料来源的前提下对本作品进行转载，%
 但不得对本作品进行修改，亦不得基于本作品进行二次创作，%
@@ -268,13 +269,6 @@ left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
   \@licenseinfo
   \end{tcolorbox}
 }
-\if@opensource
-  \begin{tcolorbox}
-  本作品已发布于GitHub之上，发布地址为：\\
-  \centerline{\@sourcepage}
-  本作品的版本号为\textsf{\@version}。
-  \end{tcolorbox}
-\fi
 \newpage
 \pagestyle{fancy}
 }
