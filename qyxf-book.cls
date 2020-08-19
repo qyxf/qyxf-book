@@ -66,19 +66,53 @@
   skip = 1ex
 }
 
+% color scheme 默认值
+% for titles amd text
+\def\@title@color{black}
+\def\@list@color{black}
+\def\@caption@color{black}
+\def\@link@color{black}
+% for boxes
+\def\@box@background{white}
+\def\@box@frame{black!75}
+\def\@box@title@color{white}
+\def\@box@title@background{black!50}
+\def\@box@color{black}
+\def\@alert@background{white}
+\def\@alert@color{black}
+\def\@alert@frame{\@alert@color}
+\def\@alert@title@background{black}
+\def\@alert@title@color{white}
+% for theorems
+\def\@define@background{white}
+\def\@define@frame{black!40}
+\def\@define@color{black}
+\def\@theorem@background{black!10}
+\def\@theorem@frame{black!80}
+\def\@theorem@color{black}
+
+% 读取 color scheme
+\def\defaultscheme{basic}
+\ifx\QYXF@colorscheme\defaultscheme
+  \relax
+\else
+  \newcommand{\schemepath}{}
+  \edef\schemepath{colors/\QYXF@colorscheme.tex} 
+  \input{\schemepath}
+\fi
+
 % tcolorbox 样式设定
-% load file name:
-\newcommand{\schemepath}{}
-\edef\schemepath{colors/\QYXF@colorscheme.tex} 
-\input{\schemepath}
+
 \tcbset{
   enhanced,
   noparskip,
   after = \noindent,
   colback = \@box@background,
+  title filled,
   colbacktitle = \@box@title@background,
   colframe = \@box@frame,
   coltitle = \@box@title@color,
+  coltext = \@box@color,
   fonttitle = \bfseries,
   arc = 0.25em,
   boxrule = 0.5pt,
@@ -94,19 +128,19 @@
 }
 
 % 自定义命令
-\newcommand{\exercise}[1]{\noindent\textbf{\color{\@primary@color}练习 #1}\ }
-\newcommand{\solve}{\noindent\textbf{\color{\@primary@color}\uline{解}}\ }
-\newcommand{\analysis}{\noindent\textbf{\color{\@primary@color}\uline{分析}}\ }
+\newcommand{\exercise}[1]{\noindent\textbf{\color{\@caption@color}练习 #1}\ }
+\newcommand{\solve}{\noindent\textbf{\color{\@caption@color}\uline{解}}\ }
+\newcommand{\analysis}{\noindent\textbf{\color{\@caption@color}\uline{分析}}\ }
 
 % 自定义定理环境及样式设定
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{define}{定义}
-\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame]}
+\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame,coltext=\@theorem@color]}
 \AfterEndEnvironment{theorem}{\end{tcolorbox}}
-\BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\@lemma@background,colframe=\@lemma@frame]}
-\AfterEndEnvironment{lemma}{\end{tcolorbox}}
-\BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\@define@background,colframe=\@define@frame]}
+\BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame,coltext=\@theorem@color]}
+  \AfterEndEnvironment{lemma}{\end{tcolorbox}}
+\BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\@define@background,colframe=\@define@frame,coltext=\@define@color]}
 \AfterEndEnvironment{define}{\end{tcolorbox}}
 \newtcolorbox{note}{title={注记}}
 \newtcolorbox{alert}{
@@ -114,7 +148,8 @@
   colback = \@alert@background,
   colframe = \@alert@frame,
   colbacktitle = \@alert@title@background,
-  coltitle = \@alert@title@color
+  coltitle = \@alert@title@color,
+  coltext = \@alert@color
 }
 
 % 页面设置
@@ -137,17 +172,17 @@
 \hypersetup{
   colorlinks = true,
   linkcolor = \@link@color,
-  anchorcolor = \@link@color,
+  anchorcolor = \@caption@color,
   urlcolor = \@link@color,
-  citecolor = \@link@color
+  citecolor = \@caption@color
 }
 
 % 章节标题与目录样式
 \RequirePackage{titlesec,titletoc}
 \ctexset{section={name={\S,}}}
-\titleformat{\chapter}[block]{\color{\@primary@color}\centering\bfseries\fontsize{2.25em}{1.2ex}}{\CTEXthechapter}{1em}{}
-\titleformat*{\section}{\color{\@primary@color}\fontsize{1.75em}{1.225ex}\bfseries\centering}
-\titleformat*{\subsection}{\color{\@primary@color}\fontsize{1.5em}{1.43ex}\bfseries}
+\titleformat{\chapter}[block]{\color{\@title@color}\centering\bfseries\fontsize{2.25em}{1.2ex}}{\CTEXthechapter}{1em}{}
+\titleformat*{\section}{\color{\@title@color}\fontsize{1.75em}{1.225ex}\bfseries\centering}
+\titleformat*{\subsection}{\color{\@title@color}\fontsize{1.5em}{1.43ex}\bfseries}
 \titlespacing{\chapter}{0pt}{*1}{*4}
 \titlecontents{chapter}[24pt]{\hspace{-2pc}\filright}
               {\normalsize\bfseries\contentspush{\thecontentslabel\ }}
@@ -162,7 +197,7 @@
 
 % 页眉页脚设置
 \def\footerbox{
-  {\color{\@primary@color}\bfseries\thepage}\\[-\baselineskip]
+  {\color{\@caption@color}\bfseries\thepage}\\[-\baselineskip]
   \uline{\hphantom{\@footorginfo}}\\
   \@footorginfo}
 \RequirePackage{fancyhdr}
@@ -246,18 +281,19 @@
 \begin{titlepage}
 \null
 \begin{center}\large
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@title@background},%
-left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
-{\color{\@primary@color}\titlefont\@title}
-\ifdefempty\@subtitle{}{\\[1ex]{\subtitlefont\@subtitle}}
-\end{tcolorbox}
 \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@frame},%
+left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
+{\color{\@title@color}\titlefont\@title}
+\ifdefempty\@subtitle{}{\\[1ex]{\color{\@title@color}\subtitlefont\@subtitle}}
+\end{tcolorbox}
+\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@title@color},%
 left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
 {\authorfont\@author}\\\datefont\@date
 \end{tcolorbox}
 \vfil\@cover\vfil
-\@orginfo
+\vbox{\@orginfo}
 \end{center}
+\vfilneg
 \end{titlepage}
 \thispagestyle{empty}
 \newpage
