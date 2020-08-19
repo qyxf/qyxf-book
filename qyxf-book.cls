@@ -4,8 +4,10 @@
 % --------------------------
 
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\def\styversion{3.0}
+\def\styname{qyxf-book}
 \ProvidesClass{qyxf-book}
-  [2020/01/08 v2.2 Qian Yuan Xue Fu book template]
+  [2020/08/19 v3.0 Qian Yuan Xue Fu book template]
 \typeout{The book template provided by Qian Yuan Xue Fu}
 \PassOptionsToPackage{no-math}{fontspec}
 \PassOptionsToPackage{CJKmath = true}{xeCJK}
