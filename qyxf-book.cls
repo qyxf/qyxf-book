@@ -230,6 +230,10 @@
 \newcommand{\sourcepage}[1]{\ClassWarning{\styname}{The metadata item `sourcepage' is deprecated}}
 
 % 标题样式重定义
+\newcommand{\titlefont}{\Huge\bfseries}
+\newcommand{\subtitlefont}{\huge\itshape}
+\newcommand{\authorfont}{\LARGE\itshape}
+\newcommand{\datefont}{\Large}
 \renewcommand*{\maketitle}{%
 \hypersetup{
   pageanchor=false,
@@ -244,12 +248,12 @@
 \begin{center}\large
 \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@title@background},%
 left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
-{\color{\@primary@color}\fontsize{40pt}{\baselineskip}\selectfont\bfseries\@title}
-\ifdefempty\@subtitle{}{\\[1ex]{\Huge\itshape\@subtitle}}
+{\color{\@primary@color}\titlefont\@title}
+\ifdefempty\@subtitle{}{\\[1ex]{\subtitlefont\@subtitle}}
 \end{tcolorbox}
 \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@frame},%
 left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
-{\LARGE\itshape\@author}\\\Large\@date
+{\authorfont\@author}\\\datefont\@date
 \end{tcolorbox}
 \vfil\@cover\vfil
 \@orginfo
