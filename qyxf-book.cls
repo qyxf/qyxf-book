@@ -9,9 +9,10 @@
 \typeout{The book template provided by Qian Yuan Xue Fu}
 \LoadClass{ctexbook}
 
+
 \DeclareOption{sourcefont}{\ClassWarning{\styname}{The option `sourcefont' is deprecated. Please customize your fonts by commands of `fontspec' and `xeCJK' package}}
 % 选项定制与处理
-\newif\if@decoration
+\DeclareStringOption[basic]{colorscheme}
 \newif\if@opensource
 \newif\if@sourcefont
 \DeclareOption{color}{}
