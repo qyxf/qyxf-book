@@ -29,6 +29,7 @@
 \setmonofont{FandolFang-Regular}
 \RequirePackage{newtxmath}
 \RequirePackage{amsmath}
+\RequirePackage{hologo}
 
 % etoolbox
 \RequirePackage{etoolbox}
