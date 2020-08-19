@@ -7,6 +7,8 @@
 \ProvidesClass{qyxf-book}
   [2020/01/08 v2.2 Qian Yuan Xue Fu book template]
 \typeout{The book template provided by Qian Yuan Xue Fu}
+\PassOptionsToPackage{no-math}{fontspec}
+\PassOptionsToPackage{CJKmath = true}{xeCJK}
 \LoadClass{ctexbook}
 
 % 设定 key-val 选项
@@ -137,10 +139,6 @@
   urlcolor = \@link@color,
   citecolor = \@link@color
 }
-% cross-platform solution for CJK font problem in urls
-% source: <https://tex.stackexchange.com/questions/381537/how-to-display-chinese-characters-in-an-url>
-\newfontfamily\urlfontfamily{FandolFang-Regular}
-\def\UrlFont{\urlfontfamily}
 
 % 章节标题与目录样式
 \RequirePackage{titlesec,titletoc}
