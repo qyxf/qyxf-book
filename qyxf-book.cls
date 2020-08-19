@@ -49,32 +49,66 @@
 \RequirePackage{longtable,booktabs}
 \RequirePackage{tikz}
 \usetikzlibrary{calc,backgrounds,shadows}
-\RequirePackage{tcolorbox,tabu}
-\tcbuselibrary{listings,theorems,skins,breakable}
+\RequirePackage[many]{tcolorbox}
+
+% caption 样式设定
+\RequirePackage{caption}
+\DeclareCaptionFormat{colored}{\small{\bfseries\color{\@caption@color}#1} #3}
+\captionsetup{
+  format = colored,
+  skip = 1ex
+}
 
 % tcolorbox 样式设定
+% load file name:
+\newcommand{\schemepath}{}
+\edef\schemepath{colors/\QYXF@colorscheme.tex} 
+\input{\schemepath}
 \tcbset{
-  colback=white,
-  colframe=black,
+  enhanced,
+  noparskip,
+  after = \noindent,
+  colback = \@box@background,
+  colbacktitle = \@box@title@background,
+  colframe = \@box@frame,
+  coltitle = \@box@title@color,
+  fonttitle = \bfseries,
+  arc = 0.25em,
+  boxrule = 0.5pt,
+  toptitle = 0.75em,
+  bottomtitle = 0.75em,
+  boxsep = 0pt,
+  left = 1.25em,
+  right = 1.25em,
+  top = 1.25em,
+  bottom = 1.25em,
+  drop fuzzy shadow,
   breakable
 }
 
 % 自定义命令
-\newcommand{\exercise}[1]{\noindent\tcbox[on line,top=0mm,bottom=0mm,right=0mm,left=0mm]{\bfseries 练习#1}\ }
-\newcommand{\note}{\noindent\textbf{注记}\ }
-\newcommand{\solve}{\noindent\textbf{解}\ }
-\newcommand{\analysis}{\noindent\textbf{分析}\ }
+\newcommand{\exercise}[1]{\noindent\textbf{\color{\@primary@color}练习 #1}\ }
+\newcommand{\solve}{\noindent\textbf{\color{\@primary@color}\uline{解}}\ }
+\newcommand{\analysis}{\noindent\textbf{\color{\@primary@color}\uline{分析}}\ }
 
 % 自定义定理环境及样式设定
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{define}{定义}
-\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[boxrule=1pt,arc=0.5mm]}
+\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame]}
 \AfterEndEnvironment{theorem}{\end{tcolorbox}}
-\BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[boxrule=1pt,arc=0.5mm,colframe=black!40]}
+\BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\@lemma@background,colframe=\@lemma@frame]}
 \AfterEndEnvironment{lemma}{\end{tcolorbox}}
-\BeforeBeginEnvironment{define}{\begin{tcolorbox}[boxrule=1pt,arc=3mm,outer arc=0.5mm]}
+\BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\@define@background,colframe=\@define@frame]}
 \AfterEndEnvironment{define}{\end{tcolorbox}}
+\newtcolorbox{note}{title={注记}}
+\newtcolorbox{alert}{
+  title = {警告},
+  colback = \@alert@background,
+  colframe = \@alert@frame,
+  colbacktitle = \@alert@title@background,
+  coltitle = \@alert@title@color
+}
 
 % 页面设置
 \RequirePackage{geometry}
@@ -82,35 +116,35 @@
 \setlength{\footskip}{30pt}
 
 % 链接设置
-\RequirePackage{hyperref}
+\RequirePackage[unicode]{hyperref}
 \hypersetup{
   breaklinks,
   unicode,
-  linktoc=all,
-  bookmarksnumbered=true,
-  bookmarksopen=true,
-  pdfborder={0 0 0},
+  linktoc = all,
+  bookmarksnumbered = true,
+  bookmarksopen = true,
+  pdfborder = {0 0 0},
   linktocpage,
-  pageanchor=true}
-
-% 装饰样式设置
-\RequirePackage{pgfornament-han}
-\RequirePackage{pgfornament}
-\newcommand{\decoration}{
-\vspace{-1ex}\centering
-\begin{tikzpicture}
-  \node at (0,0) {\pgfornamenthan[scale=0.2,symmetry=h]{60}};
-  \node[fill opacity=0.2,draw opacity=0] at (0.02,-0.03)
-  {\pgfornamenthan[scale=0.2,symmetry=h]{60}};
-\end{tikzpicture}}
+  pageanchor = true
+}
+\hypersetup{
+  colorlinks = true,
+  linkcolor = \@link@color,
+  anchorcolor = \@link@color,
+  urlcolor = \@link@color,
+  citecolor = \@link@color
+}
+% cross-platform solution for CJK font problem in urls
+% source: <https://tex.stackexchange.com/questions/381537/how-to-display-chinese-characters-in-an-url>
+\newfontfamily\urlfontfamily{FandolFang-Regular}
+\def\UrlFont{\urlfontfamily}
 
 % 章节标题与目录样式
 \RequirePackage{titlesec,titletoc}
 \ctexset{section={name={\S,}}}
-\titleformat{\chapter}[block]{
-  \centering\bfseries\fontsize{2.5em}{1ex}
-}{\CTEXthechapter}
-{1em}{}[\if@decoration\decoration\fi]
+\titleformat{\chapter}[block]{\color{\@primary@color}\centering\bfseries\fontsize{2.25em}{1.2ex}}{\CTEXthechapter}{1em}{}
+\titleformat*{\section}{\color{\@primary@color}\fontsize{1.75em}{1.225ex}\bfseries\centering}
+\titleformat*{\subsection}{\color{\@primary@color}\fontsize{1.5em}{1.43ex}\bfseries}
 \titlespacing{\chapter}{0pt}{*1}{*4}
 \titlecontents{chapter}[24pt]{\hspace{-2pc}\filright}
               {\normalsize\bfseries\contentspush{\thecontentslabel\ }}
@@ -124,10 +158,14 @@
 \setcounter{tocdepth}{2}
 
 % 页眉页脚设置
+\def\footerbox{
+  {\color{\@primary@color}\bfseries\thepage}\\[-\baselineskip]
+  \uline{\hphantom{\@footorginfo}}\\
+  \@footorginfo}
 \RequirePackage{fancyhdr}
 \fancyhead[EC]{\itshape\nouppercase\leftmark}
 \fancyhead[OC]{\itshape\nouppercase\rightmark}
-\fancyhead[EL,OR]{\bf\thepage}
+\fancyhead[EL,OR]{}
 \fancyhead[ER,OL]{}
 \fancyfoot[C]{\footerbox}
 \fancypagestyle{plain}{%
@@ -138,13 +176,28 @@
 }
 \setlength{\headheight}{13pt}
 
+% 列表样式设置
+\RequirePackage[shortlabels]{enumitem}
+\RequirePackage{pifont}
+\setlist{nosep, itemsep=0.5ex}
+\setlist[itemize,1]{label={\color{\@list@color}\ding{228}}, left=0.8em}
+\setlist[itemize,2]{label={\color{\@list@color}\ding{111}}, left=2.8em}
+\setlist[itemize,3]{label={\color{\@list@color}\ding{109}}, left=4.8em}
+\setlist[enumerate,1]{label={\color{\@list@color}\textbf{\arabic*}.}, left=0.8em}
+\setlist[enumerate,2]{label={\color{\@list@color}{\arabic*}.}, left=2.8em}
+\setlist[enumerate,3]{label={\color{\@list@color}({\arabic*})}, left=4.8em}
+\setlist[description]{style=nextline, font=\color{\@list@color}\bfseries}
+
+% 参考文献定制
+\RequirePackage[square,numbers]{natbib}
+\renewcommand{\citenumfont}[1]{{\color{\@link@color}#1}}
+\renewcommand{\bibnumfmt}[1]{{\color{\@list@color}[#1]}}
+\AtBeginEnvironment{thebibliography}{\addcontentsline{toc}{chapter}{\bibname}}
+
 % 杂项
 \RequirePackage{lastpage}
-\RequirePackage{enumerate}
-\RequirePackage{pifont}
 \RequirePackage{appendix}
 \ctexset{appendix={number={\Roman{chapter}}}}
-\RequirePackage[scale=1.1]{ccicons}
 
 % 若干 metadata
 \newcommand{\@subtitle}{}
@@ -183,16 +236,15 @@
   pdfcreator={XeLaTeX with qyxf-book class}
 }
 \begin{titlepage}
-\phantom{s}
-\vspace{3cm}
+\null
 \begin{center}\large
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{black},%
-left=20pt,top=1ex,bottom=1ex,after skip=0pt]
-{\fontsize{40pt}{\baselineskip}\selectfont\bfseries\@title}
+\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@title@background},%
+left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
+{\color{\@primary@color}\fontsize{40pt}{\baselineskip}\selectfont\bfseries\@title}
 \ifdefempty\@subtitle{}{\\[1ex]{\Huge\itshape\@subtitle}}
 \end{tcolorbox}
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{black!50},%
-left=20pt,top=2ex,bottom=1ex,before skip=0pt]
+\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@frame},%
+left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
 {\LARGE\itshape\@author}\\\Large\@date
 \end{tcolorbox}
 \vfil\@cover\vfil
