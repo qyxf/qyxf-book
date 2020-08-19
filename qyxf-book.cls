@@ -10,17 +10,16 @@
 \LoadClass{ctexbook}
 
 
+% 已废弃选项提示
+\DeclareOption{color}{\ClassWarning{\styname}{The option `color' is deprecated. Use `colorscheme' instead}}
+\DeclareOption{parskip}{\ClassWarning{\styname}{The option `parskip' is deprecated}}
+\DeclareOption{decoration}{\ClassWarning{\styname}{The option `decoration' is deprecated, due to the lack of `pgfornament' package in TeX Live 2020}}
 \DeclareOption{sourcefont}{\ClassWarning{\styname}{The option `sourcefont' is deprecated. Please customize your fonts by commands of `fontspec' and `xeCJK' package}}
+\DeclareOption{plain}{\ClassWarning{\styname}{The option `sourcefont' is deprecated}}
+\DeclareOption{opensource}{\ClassWarning{\styname}{The option `opensource' is deprecated}}
+
 % 选项定制与处理
 \DeclareStringOption[basic]{colorscheme}
-\newif\if@opensource
-\newif\if@sourcefont
-\DeclareOption{color}{}
-\DeclareOption{parskip}{
-  \setlength\parskip{0.2\baselineskip}}
-\DeclareOption{decoration}{\@decorationtrue}
-\DeclareOption{plain}{\@decorationfalse}
-\DeclareOption{opensource}{\@opensourcetrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions
 
@@ -121,20 +120,14 @@
 
 % 页眉页脚设置
 \RequirePackage{fancyhdr}
-\newcommand{\footdeco}{
-\resizebox{10em}{5ex}{
-  \begin{tikzpicture}
-    \node at (0,0) {\pgfornamenthan[scale=0.05]{58}};
-    \node[opacity=0.2, draw opacity=0] at (0.02,-0.03) {\pgfornamenthan[scale=0.05]{58}};
-  \end{tikzpicture}}\\[-1ex]}
 \fancyhead[EC]{\itshape\nouppercase\leftmark}
 \fancyhead[OC]{\itshape\nouppercase\rightmark}
 \fancyhead[EL,OR]{\bf\thepage}
 \fancyhead[ER,OL]{}
-\fancyfoot[C]{\if@decoration\footdeco\else\vspace{1ex}\fi\textsc{Qian Yuan Xue Fu}}
+\fancyfoot[C]{\footerbox}
 \fancypagestyle{plain}{%
 \fancyhf{}
-\fancyfoot[C]{\if@decoration\footdeco\else\vspace{1ex}\fi\textsc{Qian Yuan Xue Fu}}
+\fancyfoot[C]{\footerbox}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 }
@@ -153,12 +146,8 @@
 \newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}
 \newcommand{\@typo}{}
 \newcommand{\typo}[1]{\gdef\@typo{#1}}
-\newcommand{\@version}{}
-\newcommand{\version}[1]{\gdef\@version{#1}}
-\newcommand{\@sourcepage}{}
-\newcommand{\sourcepage}[1]{\gdef\@sourcepage{#1}}
-
-% 组织信息
+\newcommand{\@cover}{}
+\newcommand{\cover}[1]{\gdef\@cover{#1}}
 \newcommand{\@orginfo}{
   \textit{钱学森书院学业辅导中心}\\[1ex]
   \textsc{Xi'an Jiaotong University}
@@ -173,6 +162,10 @@
 但不得对本作品进行修改，亦不得基于本作品进行二次创作，%
 不得将本作品运用于商业用途。}
 \newcommand{\license}[1]{\gdef\@licenseinfo{#1}}
+
+% 已废弃的 metadata
+\newcommand{\version}[1]{\ClassWarning{\styname}{The metadata item `version' is deprecated}}
+\newcommand{\sourcepage}[1]{\ClassWarning{\styname}{The metadata item `sourcepage' is deprecated}}
 
 % 标题样式重定义
 \renewcommand*{\maketitle}{%
@@ -197,23 +190,17 @@ left=20pt,top=1ex,bottom=1ex,after skip=0pt]
 left=20pt,top=2ex,bottom=1ex,before skip=0pt]
 {\LARGE\itshape\@author}\\\Large\@date
 \end{tcolorbox}
-\vfill
+\vfil\@cover\vfil
 \@orginfo
 \end{center}
-\begin{tikzpicture}[remember picture,overlay]
-  \begin{pgfonlayer}{background}
-  \node at ($(current page.east) - (0.25in, 1in)$) {%
-  \includegraphics[width=0.8\textwidth]{cover.pdf}};
-  \end{pgfonlayer}
-\end{tikzpicture}
 \end{titlepage}
 \thispagestyle{empty}
 \newpage
 \hypersetup{pageanchor=true}
-\phantom{s}\vfill
+\null\vfill
 \begin{tcolorbox}[title={\bfseries 作品信息}]
 \ding{228} \textbf{标题：}\@title{}
-\ifdefempty\@subtitle{}{- \textit{\@subtitle}}\\
+\ifdefempty\@subtitle{}{: \textit{\@subtitle}}\\
 \ding{228} \textbf{作者：}\@author\\
 \ifdefempty{\@typo}{}{\ding{228} \textbf{校对排版：}\@typo\\}
 \ding{228} \textbf{出品时间：}\@date\\
