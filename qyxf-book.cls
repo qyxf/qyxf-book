@@ -9,6 +9,7 @@
 \typeout{The book template provided by Qian Yuan Xue Fu}
 \LoadClass{ctexbook}
 
+\DeclareOption{sourcefont}{\ClassWarning{\styname}{The option `sourcefont' is deprecated. Please customize your fonts by commands of `fontspec' and `xeCJK' package}}
 % 选项定制与处理
 \newif\if@decoration
 \newif\if@opensource
@@ -19,16 +20,14 @@
 \DeclareOption{decoration}{\@decorationtrue}
 \DeclareOption{plain}{\@decorationfalse}
 \DeclareOption{opensource}{\@opensourcetrue}
-\DeclareOption{sourcefont}{\@sourcefonttrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions
 
 % 字体处理
-\if@sourcefont  % 不再配置自定义字体，请自行配置
-  \ClassWarning{qyxf-book}{The option `sourcefont' is deprecated.}
-\fi
-\if@decoration
-\RequirePackage{fourier}
+\setmainfont{Libertinus Serif}
+\setsansfont{Libertinus Sans}
+\setmonofont{FandolFang-Regular}
+\RequirePackage{newtxmath}
 \RequirePackage{amsmath}
 
 % etoolbox
