@@ -86,7 +86,7 @@
 
 当前版本。在 V2 版本之上进一步改进了之前的问题，并向通用、可定制的方向前进一大步。
 
-在字体方面，移除了中文字体备选项，完全采用 C\TeX 宏集的默认设置；西文及数学字体由 \verb|newtx| 系列宏包设定，由此使模板本身完全摆脱对外部字体的依赖\footnote{由此也使得字体的定制成为用户自己的工作。}。
+在字体方面，移除了中文字体备选项，完全采用 C\TeX 宏集的默认设置；西文字体采用 \TeX 发行版附带的 XITS 系列字体，由此使模板本身完全摆脱对外部字体的依赖\footnote{由此也使得字体的定制成为用户自己的工作。}。
 
 在样式方面，综合若干书籍及网页模板重设了各类元素的尺寸、间距，并完全移除了原由 \verb|pgfornament| 与 \verb|pgfornament-han| 宏包所实现的装饰\footnote{一方面，是因为 \TeX Live 2020 中这两个宏包未被容纳进来；另一方面，目前也发现装饰的存在不利于样式的修改、定制，且对阅读效果并无明显改善。}。此外，还新增了用户定制配色方案、元信息的功能。
 
@@ -233,10 +233,12 @@
 
 \subsection{正文字体设定}
 
-西文字体方面，目前采用 \verb|newtx| 系列宏包设定。如您想变更西文字体，请完成以下两个步骤：
+西文字体方面，目前采用 XITS 系列字体
+\footnote{无衬线体采用接近于 Helvetica 的 \TeX{} Gyre Heros。}
+。如您想变更西文字体，请完成以下两个步骤：
 
 \begin{enumerate}
-    \item 为 \verb|qyxf-book| 文类传入 \verb|newtx = false| 的选项，此时西文字体将还原至 Computer Modern 字体；
+    \item 为 \verb|qyxf-book| 文类传入 \verb|xits = false| 的选项，此时西文字体将还原至 Computer Modern 字体；
     \item 采用 \verb|fontspec| 宏包提供的 \verb|\setmainfont| 等命令设定字体。
 \end{enumerate}
 
@@ -244,7 +246,7 @@
 
 \begin{tcolorbox}
 \begin{verbatim}
-\documentclass[newtx = false]{qyxf-book}
+\documentclass[xits = false]{qyxf-book}
 % fontspec 宏包已载入，无需再声明
 \setmainfont{Libertinus Serif}
 \setsansfont{Libertinus Sans}

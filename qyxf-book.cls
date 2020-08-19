@@ -27,16 +27,18 @@
 
 % 选项定制与处理
 \DeclareStringOption[basic]{colorscheme}
-\DeclareBoolOption[true]{newtx}
+\DeclareBoolOption[true]{xits}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessKeyvalOptions*
 \ProcessOptions
 
 % 字体处理
 \RequirePackage{amsmath}
-\ifQYXF@newtx
-  \RequirePackage{newtxtext}
-  \RequirePackage{newtxmath}
+\ifQYXF@xits
+  \setmainfont{XITS}
+  \setsansfont{TeX Gyre Heros}[Scale=0.93]
+  \RequirePackage{unicode-math}
+  \setmathfont{XITS Math}
 \fi
 \RequirePackage{hologo}
 
