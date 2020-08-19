@@ -9,6 +9,9 @@
 \typeout{The book template provided by Qian Yuan Xue Fu}
 \LoadClass{ctexbook}
 
+% 设定 key-val 选项
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{family = QYXF, prefix = QYXF@}
 
 % 已废弃选项提示
 \DeclareOption{color}{\ClassWarning{\styname}{The option `color' is deprecated. Use `colorscheme' instead}}
