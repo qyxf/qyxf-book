@@ -34,6 +34,10 @@
 % etoolbox
 \RequirePackage{etoolbox}
 
+% 正文样式设置
+\setlength{\parskip}{0.8ex}
+\RequirePackage[normalem]{ulem}
+
 % 脚注样式调整
 \renewcommand{\thefootnote}{\textbf{(\arabic{footnote})}}
 
