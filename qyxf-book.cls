@@ -143,7 +143,7 @@
 \BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame,coltext=\@theorem@color]}
 \AfterEndEnvironment{theorem}{\end{tcolorbox}}
 \BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame,coltext=\@theorem@color]}
-  \AfterEndEnvironment{lemma}{\end{tcolorbox}}
+\AfterEndEnvironment{lemma}{\end{tcolorbox}}
 \BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\@define@background,colframe=\@define@frame,coltext=\@define@color]}
 \AfterEndEnvironment{define}{\end{tcolorbox}}
 \newtcolorbox{note}{title={注记}}

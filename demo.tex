@@ -1,10 +1,10 @@
 % !TEX program = xelatex
 \documentclass[
-    10pt,
-    oneside,
-    openany,
-    b5paper,
-    colorscheme = basic  % 请根据需要选择或定制配色方案
+  10pt,
+  oneside,
+  openany,
+  b5paper,
+  colorscheme = basic  % 请根据需要选择或定制配色方案
 ]{qyxf-book}
 
 \title{钱院学辅 \LaTeX 书籍模板}
@@ -38,22 +38,22 @@
 利用 \verb|qyxf-book| 模板，我们已经生成了如下一些作品，它们都发布于\href{https://qyxf.site}{钱院学辅信息站}上，点击链接即可在浏览器中预览、下载。因各份作品采用了不同版本的 \verb|qyxf-book| 复本，且有一些个性化的定制，故观感将略有差异。
 
 \begin{tcolorbox}
-\begin{description}
+  \begin{description}
     \item [GRE备考指南] \url{https://qyxf.site/latest/GRE备考指南-v2.0.pdf}
     \item [军事理论教程] \url{https://qyxf.site/latest/军事理论教程.pdf}
     \item [分析力学笔记] \url{https://qyxf.site/latest/分析力学笔记-v1.0.pdf}
     \item [大学物理题解] \url{https://qyxf.site/latest/大物题解（上）.pdf}
     \item [实变函数习题解答] \url{https://qyxf.site/latest/实变函数习题解答.pdf}
     \item [计算方法撷英] \url{https://qyxf.site/latest/计算方法撷英-v1.1.pdf}
-    \item [计算机程序设计指南] \url{https://qyxf.site/latest/计算机设计程序指南.pdf} 
-\end{description}
+    \item [计算机程序设计指南] \url{https://qyxf.site/latest/计算机设计程序指南.pdf}
+  \end{description}
 \end{tcolorbox}
 
 根据钱院学辅所编资料的题材与传播形式，本套模板的设计宗旨确定为：
 \begin{enumerate}
-    \item 实现钱院学辅自编资料所需功能，同时留出供其他用户定制的接口；
-    \item 保持页面样式的干净、整洁，不引入与作品内容的呈现无关的元素；
-    \item 保证文档的打印效果，以及在手机、平板等小屏设备上的阅读效果。
+  \item 实现钱院学辅自编资料所需功能，同时留出供其他用户定制的接口；
+  \item 保持页面样式的干净、整洁，不引入与作品内容的呈现无关的元素；
+  \item 保证文档的打印效果，以及在手机、平板等小屏设备上的阅读效果。
 \end{enumerate}
 
 \section{版本演进}
@@ -104,8 +104,9 @@
 
 \begin{itemize}
   \item \verb|\exercise{<id>}|：生成一个「练习」标记，接受一个参数 \verb|<id>| 作为编号
-  \footnote{模板中没有为这个命令设定自动编号，主要是因为编写题解的过程中常出现选题、跳题的情况，且自动编号下不易从源代码中找到对应题目。}
-  （可留空），如 \verb|\exercise{1}| 将生成：\exercise{1}。
+        \footnote{模板中没有为这个命令设定自动编号，主要是因为编写题解的过程中常出现选题、
+        跳题的情况，且自动编号下不易从源代码中找到对应题目。}
+        （可留空），如 \verb|\exercise{1}| 将生成：\exercise{1}。
   \item \verb|\solve|：生成一个「解」的标记：\solve。
   \item \verb|\analysis|：生成一个「分析」的标记：\analysis。
 \end{itemize}
@@ -118,7 +119,7 @@
 \end{itemize}
 其中，定理、定义类环境属于数学环境，采用 \LaTeX 原生机制定义，仅在外围包裹一层装饰用的盒子；因此，可按照通常的写法编写数学环境，如：
 \begin{tcolorbox}
-\begin{verbatim}
+  \begin{verbatim}
 \begin{theorem}[L'H\^opital 法则]
 \begin{equation}
 \lim_{x\to x_0} \frac{f(x)}{F(x)} =
@@ -158,37 +159,37 @@
 本模板中要求填写几项元信息，如表 \ref{tab:metadata} 所示。请在使用时填写完整，以避免出现预料之外的情况。
 
 \begin{table}[htbp]
-\centering\small
-\caption{\texttt{qyxf-book} 中需求的元信息}
-\label{tab:metadata}
-\begin{tabular}{cccc}
-\toprule
-元信息 & 设置命令 & 可否置空 & 默认值 \\
-\midrule
-标题 & \verb|\title| & \ding{55} & 无 \\
-副标题 & \verb|\subtitle| & \ding{55} & 无\\
-作者 & \verb|\author| & \ding{55} & 无\\
-创作日期 & \verb|\date| & \ding{55} & \verb|\today|\\
-排版者 & \verb|\typo| & \ding{51} & 无 \\
-\midrule
-首页组织信息 & \verb|\org| & \ding{51} & \begin{tabular}[c]{@{}l@{}}
-\verb|\textit{钱学森书院学业辅导中心}\\[1ex]|\\\verb|\textsc{Xi'an Jiaotong University}|\end{tabular}\\
-\midrule
-页脚组织信息 & \verb|\footorg| & \ding{51} & \verb|\textsc{Qian Yuan Xue Fu}| \\
-\midrule
-许可证说明 & \verb|\license| & \ding{51} & \begin{tabular}[c]{@{}l@{}}
-\verb|本作品采用\href{https://|\\
-\verb|creativecommons.org/licenses/|\\
-\verb|by-nc-nd/4.0/}{\bfseriesCC BY-|\\
-\verb|NC-ND 4.0 协议}进行许可。使用|\\
-\verb|者可以在给出作者署名及资料来源|\\
-\verb|的前提下对本作品进行转载，但不|\\
-\verb|得对本作品进行修改，亦不得基于|\\
-\verb|本作品进行二次创作，不得将本作|\\
-\verb|品运用于商业用途。|
-\end{tabular} \\
-\bottomrule
-\end{tabular}
+  \centering\small
+  \caption{\texttt{qyxf-book} 中需求的元信息}
+  \label{tab:metadata}
+  \begin{tabular}{cccc}
+    \toprule
+    元信息       & 设置命令                & 可否置空  & 默认值                     \\
+    \midrule
+    标题         & \verb|\title| & \ding{55} & 无                         \\
+    副标题       & \verb|\subtitle| & \ding{55} & 无                         \\
+    作者         & \verb|\author| & \ding{55} & 无                         \\
+    创作日期     & \verb|\date| & \ding{55} & \verb|\today|    \\
+    排版者       & \verb|\typo| & \ding{51} & 无                         \\
+    \midrule
+    首页组织信息 & \verb|\org| & \ding{51} & \begin{tabular}[c]{@{}l@{}}
+      \verb|\textit{钱学森书院学业辅导中心}\\[1ex]| \\\verb|\textsc{Xi'an Jiaotong University}|\end{tabular} \\
+    \midrule
+    页脚组织信息 & \verb|\footorg| & \ding{51} & \verb|\textsc{Qian Yuan Xue Fu}|    \\
+    \midrule
+    许可证说明   & \verb|\license| & \ding{51} & \begin{tabular}[c]{@{}l@{}}
+      \verb|本作品采用\href{https://| \\
+      \verb|creativecommons.org/licenses/| \\
+      \verb|by-nc-nd/4.0/}{\bfseriesCC BY-| \\
+      \verb|NC-ND 4.0 协议}进行许可。使用| \\
+      \verb|者可以在给出作者署名及资料来源| \\
+      \verb|的前提下对本作品进行转载，但不| \\
+      \verb|得对本作品进行修改，亦不得基于| \\
+      \verb|本作品进行二次创作，不得将本作| \\
+      \verb|品运用于商业用途。|
+    \end{tabular} \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 \subsection{封面定制}
@@ -211,24 +212,24 @@
 }
 \end{verbatim}
 \end{tcolorbox}
-后侧的 \verb|\vfill| 会将插入元素向上挤压。在另一方向上同理。除了插入图片之外，你也可以使用 \verb|\cover| 命令在首页上插入全局性命令，或使用 Ti$k$Z 环境按页面定位插入图片。 
+后侧的 \verb|\vfill| 会将插入元素向上挤压。在另一方向上同理。除了插入图片之外，你也可以使用 \verb|\cover| 命令在首页上插入全局性命令，或使用 Ti$k$Z 环境按页面定位插入图片。
 
 此外，封面标题的字体大小、样式也可重新定义，字体接口及默认值如表 \ref{tab:preface-font} 所示。如有需要（如标题名称较长导致换行），请使用 \verb|\renewcommand| 命令修改。
 
 \begin{table}[htbp]
-\centering
-\caption{\texttt{qyxf-book} 提供的封面字体修改接口}
-\label{tab:preface-font}
-\begin{tabular}{ccc}
-\toprule
-接口 & 对应元信息 & 默认值\\
-\midrule
-\verb|\titlefont| & \verb|\title| & \verb|\Huge\bfseries| \\
-\verb|\subtitlefont| & \verb|\subtitle| & \verb|\huge\itshape| \\
-\verb|\authorfont| & \verb|\author| & \verb|\LARGE\itshape| \\
-\verb|\datefont| & \verb|\date| & \verb|\Large| \\
-\bottomrule
-\end{tabular}
+  \centering
+  \caption{\texttt{qyxf-book} 提供的封面字体修改接口}
+  \label{tab:preface-font}
+  \begin{tabular}{ccc}
+    \toprule
+    接口                    & 对应元信息              & 默认值                  \\
+    \midrule
+    \verb|\titlefont| & \verb|\title| & \verb|\Huge\bfseries| \\
+    \verb|\subtitlefont| & \verb|\subtitle| & \verb|\huge\itshape| \\
+    \verb|\authorfont| & \verb|\author| & \verb|\LARGE\itshape| \\
+    \verb|\datefont| & \verb|\date| & \verb|\Large| \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 \subsection{正文字体设定}
@@ -238,8 +239,8 @@
 。如您想变更西文字体，请完成以下两个步骤：
 
 \begin{enumerate}
-    \item 为 \verb|qyxf-book| 文类传入 \verb|xits = false| 的选项，此时西文字体将还原至 Computer Modern 字体；
-    \item 采用 \verb|fontspec| 宏包提供的 \verb|\setmainfont| 等命令设定字体。
+  \item 为 \verb|qyxf-book| 文类传入 \verb|xits = false| 的选项，此时西文字体将还原至 Computer Modern 字体；
+  \item 采用 \verb|fontspec| 宏包提供的 \verb|\setmainfont| 等命令设定字体。
 \end{enumerate}
 
 例如，下面的代码会将西文字体调整为 \TeX 发行版自带的 Libertinus 系列：
@@ -271,12 +272,12 @@
 
 本模板目前还存在许多可改进之处，主要包括：
 \begin{enumerate}
-    \item 模板对 \verb|part| 级别的标题、目录样式未作任何定制；
-    \item 在参考文献方面，模板仅对 \LaTeX 自带的简易文献环境 \verb|thebibliorgraphy| 做了定制，未考虑 \hologo{BibTeX}
-    \footnote{在 v2.3 版本中曾在 demo 中引入了 \hologo{BibTeX} 的示例；后考虑到此方面并无需求，为了简化 demo 结构，在 V3 版本中又移除了。}
-    及 \verb|biblatex| 的样式支持；
-    \item 模板尚未引入对代码抄录宏包（如 \verb|listings|）的支持；
-    \item 配色方案还不完善，对部分元素的支持不佳。
+  \item 模板对 \verb|part| 级别的标题、目录样式未作任何定制；
+  \item 在参考文献方面，模板仅对 \LaTeX 自带的简易文献环境 \verb|thebibliorgraphy| 做了定制，未考虑 \hologo{BibTeX}
+        \footnote{在 v2.3 版本中曾在 demo 中引入了 \hologo{BibTeX} 的示例；后考虑到此方面并无需求，为了简化 demo 结构，在 V3 版本中又移除了。}
+        及 \verb|biblatex| 的样式支持；
+  \item 模板尚未引入对代码抄录宏包（如 \verb|listings|）的支持；
+  \item 配色方案还不完善，对部分元素的支持不佳。
 \end{enumerate}
 未做改动的原因很多，最大的原因是在钱院学辅排版的过程中对这些功能没有需求
 \footnote{例如，在参考文献方面，许多资料甚至连 \texttt{thebibliorgraphy} 环境也不需要，用脚注就能解决问题。}。
@@ -285,9 +286,9 @@
 
 如果您：
 \begin{itemize}
-    \item 对上述功能有需求，并有能力帮助我们完善；
-    \item 有其他好的建议、功能推荐；
-    \item 设计了新颖、实用的配色、字体方案；
+  \item 对上述功能有需求，并有能力帮助我们完善；
+  \item 有其他好的建议、功能推荐；
+  \item 设计了新颖、实用的配色、字体方案；
 \end{itemize}
 请通过我们的代码仓库向我们提交建议与改动请求：\url{https://gitee.com/qyxf/qyxf-book}，我们将酌情采纳、接收。
 
@@ -301,46 +302,46 @@
 \section{用户环境示例}
 
 \begin{define}
-    极限就是超越自我。
+  极限就是超越自我。
 \end{define}
 
 \begin{theorem}
-    任何极限都可以直接观察得出。
+  任何极限都可以直接观察得出。
 \end{theorem}
 
 \begin{lemma}
-    以上内容，纯属扯淡。
+  以上内容，纯属扯淡。
 \end{lemma}
 
 \begin{note}
-好好学习，天天向上。
+  好好学习，天天向上。
 \end{note}
 
 \begin{alert}
-今天你学习了吗？
+  今天你学习了吗？
 \end{alert}
 
 \section{列表样式}
 \begin{itemize}
-    \item 这是第一层
-    \item 这也是第一层
+  \item 这是第一层
+  \item 这也是第一层
+  \begin{itemize}
+    \item 这是第二层
     \begin{itemize}
-        \item 这是第二层
-        \begin{itemize}
-            \item 这是第三层
-        \end{itemize}
+      \item 这是第三层
     \end{itemize}
+  \end{itemize}
 \end{itemize}
 
 \begin{enumerate}
-    \item 这是第一层
-    \item 这也是第一层
+  \item 这是第一层
+  \item 这也是第一层
+  \begin{enumerate}
+    \item 这是第二层
     \begin{enumerate}
-        \item 这是第二层
-        \begin{enumerate}
-            \item 这是第三层
-        \end{enumerate}
+      \item 这是第三层
     \end{enumerate}
+  \end{enumerate}
 \end{enumerate}
 
 \section{正文示例}
@@ -349,26 +350,26 @@
 
 
 \begin{table}[htbp]
-\centering
-\caption{常用导数}
-\begin{tabular}{cccc}
-\toprule
-\textbf{原函数} & \textbf{导函数} & \textbf{原函数} & \textbf{导函数} \\
-\midrule
-$C$ & $0$ & $\ln x$ & $\frac{1}{x}$ \\
-$x^\mu$ & $\mu x^{\mu - 1}$ & $\sin x$ & $\cos x$ \\
-$e^x$ & $e^x$ & $\cos x$ & $-\sin x$ \\
-\bottomrule
-\end{tabular}
+  \centering
+  \caption{常用导数}
+  \begin{tabular}{cccc}
+    \toprule
+    \textbf{原函数} & \textbf{导函数}   & \textbf{原函数} & \textbf{导函数} \\
+    \midrule
+    $C$             & $0$               & $\ln x$         & $\frac{1}{x}$   \\
+    $x^\mu$         & $\mu x^{\mu - 1}$ & $\sin x$        & $\cos x$        \\
+    $e^x$           & $e^x$             & $\cos x$        & $-\sin x$       \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 ……几乎所有量化的学科中都有\textbf{微分}的应用。例如在物理学中，运动物体其\emph{位移}对时间的导数即为其\emph{速度}，\emph{速度}对时间的导数就是\emph{加速度}、物体\emph{动量}对时间的导数即为物体所受的\emph{力}，重新整理后可以得到牛顿第二运动定律 $F=ma$ 。化学反应的\emph{化学反应速率}也是导数。在运筹学中，会透过导数决定在运输或是设计上最有效率的做法。
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=.3\textwidth]{cover.pdf}
-\caption{V2 版本的封面图片}
-\label{fig:qyxf-logo}
+  \centering
+  \includegraphics[width=.3\textwidth]{cover.pdf}
+  \caption{V2 版本的封面图片}
+  \label{fig:qyxf-logo}
 \end{figure}
 
 导数常用来找函数的\emph{极值}。含有微分项的方程式称为\textbf{微分方程}，是自然现象描述的基础。微分以及其广义概念出现在许多数学领域中，例如\emph{复分析}、\emph{泛函分析}、\emph{微分几何}、\emph{测度}及\emph{抽象代数}\footnote{以上内容摘自维基百科中文词条 --- 微分学：\url{https://zh.wikipedia.org/wiki/微分学}。}。
@@ -377,7 +378,7 @@ $e^x$ & $e^x$ & $\cos x$ & $-\sin x$ \\
 
 \exercise{1} 试用配方法求解方程：
 \begin{equation}\label{eq:quadratic}
-ax^2 + bx + c = 0
+  ax^2 + bx + c = 0
 \end{equation}
 
 \solve 首先，方程左右两侧同除以 $a$，得到
@@ -390,21 +391,21 @@ ax^2 + bx + c = 0
 \[ x + \frac b{2a} = \pm \sqrt{\frac {b^2}{4a^2} - \frac ca} \]
 从而得到方程 \eqref{eq:quadratic} 之解为
 \begin{equation}
-x = - \frac b{2a} \pm \sqrt{\frac {b^2}{4a^2} - \frac ca}
+  x = - \frac b{2a} \pm \sqrt{\frac {b^2}{4a^2} - \frac ca}
 \end{equation}
 该式即为一元二次方程的\textbf{通用求根公式}。
 
 
 \analysis 在这一问题中，需要注意以下几点 \cite{texbook,latex}：
 \begin{itemize}
-    \item ……
-    \item ……
-    \item ……
+  \item ……
+  \item ……
+  \item ……
 \end{itemize}
 
 \begin{thebibliography}{99}
-\bibitem{texbook} KNUTH~D~E. The \TeX book [M]. Addison-Wesley: Massachusetts, 1986.
-\bibitem{latex} 刘海洋. \LaTeX 入门 [M]. 人民邮电出版社: 北京, 2013.
+  \bibitem{texbook} KNUTH~D~E. The \TeX book [M]. Addison-Wesley: Massachusetts, 1986.
+  \bibitem{latex} 刘海洋. \LaTeX 入门 [M]. 人民邮电出版社: 北京, 2013.
 \end{thebibliography}
 
 \end{document}
