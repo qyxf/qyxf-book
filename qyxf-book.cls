@@ -227,8 +227,9 @@
 % 列表样式设置
 \RequirePackage[shortlabels]{enumitem}
 \RequirePackage{pifont}
+\newcommand{\arrowmark}{\ding{228}}
 \setlist{nosep, itemsep=0.5ex}
-\setlist[itemize,1]{label={\color{\@list@color}\ding{228}}, left=0.8em}
+\setlist[itemize,1]{label={\color{\@list@color}\arrowmark}, left=0.8em}
 \setlist[itemize,2]{label={\color{\@list@color}\ding{111}}, left=2.8em}
 \setlist[itemize,3]{label={\color{\@list@color}\ding{109}}, left=4.8em}
 \setlist[enumerate,1]{label={\color{\@list@color}\textbf{\arabic*}.}, left=0.8em}
@@ -310,12 +311,12 @@ left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
 \hypersetup{pageanchor=true}
 \null\vfill
 \begin{tcolorbox}[title={\bfseries 作品信息}]
-\ding{228} \textbf{标题：}\@title{}
+\arrowmark \textbf{标题：}\@title{}
 \ifdefempty\@subtitle{}{: \textit{\@subtitle}}\\
-\ding{228} \textbf{作者：}\@author\\
-\ifdefempty{\@typo}{}{\ding{228} \textbf{校对排版：}\@typo\\}
-\ding{228} \textbf{出品时间：}\@date\\
-\ding{228} \textbf{总页数：}\pageref{LastPage}
+\arrowmark \textbf{作者：}\@author\\
+\ifdefempty{\@typo}{}{\arrowmark \textbf{校对排版：}\@typo\\}
+\arrowmark \textbf{出品时间：}\@date\\
+\arrowmark \textbf{总页数：}\pageref{LastPage}
 \end{tcolorbox}
 \ifdefempty\@licenseinfo{}{
   \begin{tcolorbox}[title={\bfseries 许可证说明}]
@@ -329,10 +330,10 @@ left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
 % 目录样式重定义
 \renewcommand\tableofcontents{%
 \pagestyle{empty}
-\centerline{%
+\begin{center}%
 \normalfont\LARGE\bfseries\contentsname%
 \@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}
-}
+\end{center}
 \vskip 3ex%
 {\setlength\parskip{0pt}\@starttoc{toc}}
 \cleardoublepage
