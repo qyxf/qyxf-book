@@ -4,7 +4,7 @@
 
 本份模板原在 [qyxf-sets 宏集](https://github.com/qyxf/qyxf-sets)项目中开发；因维护成本过高、效果不理想，现独立维护，并不再使用之前的 doc/doctrip 方式。现采用 MIT 协议许可，请大家放心地 fork、修改。
 
-<img alt="thumbnail" style="align: center; max-height: 50vh;" src="figure/thumbnail.png" />
+![thumbnail](figure/thumbnail.png)
 
 ## 特点
 
