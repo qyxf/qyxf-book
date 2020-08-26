@@ -1,10 +1,10 @@
 % !TEX program = xelatex
 \documentclass[
   10pt,
-  oneside,
+  twoside,
   openany,
-  b5paper,
-  colorscheme = basic  % 请根据需要选择或定制配色方案
+  b5paper, % 以上均为 ctexbook 提供的文类选项
+  colorscheme = basic % 请根据需要选择或定制配色方案
 ]{qyxf-book}
 
 \title{钱院学辅 \LaTeX 书籍模板}
@@ -174,12 +174,12 @@
     创作日期     & \verb|\date| & \ding{55} & \verb|\today|    \\
     排版者       & \verb|\typo| & \ding{51} & 无                         \\
     \midrule
-    首页组织信息 & \verb|\org| & \ding{51} & \begin{tabular}[c]{@{}l@{}}
+    首页组织信息 & \verb|\org| & \ding{51} & \footnotesize\begin{tabular}[c]{@{}l@{}}
       \verb|\textit{钱学森书院学业辅导中心}\\[1ex]| \\\verb|\textsc{Xi'an Jiaotong University}|\end{tabular} \\
     \midrule
     页脚组织信息 & \verb|\footorg| & \ding{51} & \verb|\textsc{Qian Yuan Xue Fu}|    \\
     \midrule
-    许可证说明   & \verb|\license| & \ding{51} & \begin{tabular}[c]{@{}l@{}}
+    许可证说明   & \verb|\license| & \ding{51} & \footnotesize\begin{tabular}[c]{@{}l@{}}
       \verb|本作品采用\href{https://| \\
       \verb|creativecommons.org/licenses/| \\
       \verb|by-nc-nd/4.0/}{\bfseriesCC BY-| \\
@@ -200,18 +200,14 @@
 
 \begin{tcolorbox}
 \begin{verbatim}
-\cover{
-  \includegraphics[width=0.5\textwidth]{figure/cover.pdf}
-}
+\cover{\includegraphics[width=0.5\textwidth]{figure/cover.pdf}}
 \end{verbatim}
 \end{tcolorbox}
 若你希望使插入元素靠向上侧，则可这样实现：
 \begin{tcolorbox}
 \begin{verbatim}
-\cover{
-  \includegraphics[width=0.5\textwidth]{figure/cover.pdf}
-  \vfill
-}
+\cover{\includegraphics[width=0.5\textwidth]{figure/cover.pdf}%
+\vfill}
 \end{verbatim}
 \end{tcolorbox}
 后侧的 \verb|\vfill| 会将插入元素向上挤压。在另一方向上同理。除了插入图片之外，你也可以使用 \verb|\cover| 命令在首页上插入全局性命令，或使用 Ti$k$Z 环境按页面定位插入图片。
@@ -408,7 +404,7 @@
 \end{itemize}
 
 \begin{thebibliography}{99}
-  \bibitem{texbook} KNUTH~D~E. The \TeX book [M]. Addison-Wesley: Massachusetts, 1986.
+  \bibitem{texbook} KNUTH~D~E. The \TeX book [M]. Addison-Wesley: Reading, 1986.
   \bibitem{latex} 刘海洋. \LaTeX 入门 [M]. 人民邮电出版社: 北京, 2013.
 \end{thebibliography}
 
