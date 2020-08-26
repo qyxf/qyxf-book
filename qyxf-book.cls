@@ -50,7 +50,6 @@
 \RequirePackage{etoolbox}
 
 % 正文样式设置
-\setlength{\parskip}{0.8ex}
 \RequirePackage[normalem]{ulem}
 
 % 脚注样式调整
@@ -162,7 +161,10 @@
 
 % 页面设置
 \RequirePackage{geometry}
-\geometry{margin=1in}
+\geometry{
+  margin = 1in,
+  footskip = .25in
+  }
 \setlength{\footskip}{30pt}
 
 % 链接设置
@@ -220,7 +222,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 }
-\setlength{\headheight}{13pt}
+\setlength{\headheight}{15pt}
 
 % 列表样式设置
 \RequirePackage[shortlabels]{enumitem}
