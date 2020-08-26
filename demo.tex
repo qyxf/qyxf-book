@@ -230,7 +230,20 @@
   \end{tabular}
 \end{table}
 
-\subsection{正文字体设定}
+\section{正文字体设置}
+
+\subsection{字体设置方案的考虑}
+
+不像其他功能完备的模板，\verb|qyxf-book| 没有提供除默认配置之外的其他「字体包」，仅给出了关闭默认字体配置的选项，其余工作完全交由用户决定
+\footnote{对于大多数用户而言，需要做的决定就是「什么也不用做，采用默认配置即可」。}
+、执行。对这一点，有两方面考虑：
+\begin{enumerate}
+  \item 钱院学辅的成员大多使用 Windows 系统，在其上为 \TeX 环境配置字体比较困难。大多数同学无法载入外部字体，使得之前版本中提供的字体配置选项相当「鸡肋」，几乎无人使用。
+  \item 对于少部分有能力自行配置字体的用户而言，预先定义的字体方案则往往不合其意，不如完全置空、由用户自行完成。
+\end{enumerate}
+因此，在当前版本的 \verb|qyxf-book| 模板中，完全移除了预定义的字体选项。如您认为有必要、也有能力自行配置字体，请阅读以下内容；否则，请遵循默认的字体配置。
+
+\subsection{西文字体设置}
 
 西文字体方面，目前采用 XITS 系列字体
 \footnote{无衬线体采用接近于 Helvetica 的 \TeX{} Gyre Heros。}
@@ -255,16 +268,45 @@
 \end{verbatim}
 \end{tcolorbox}
 
-中文字体方面，目前完全交由 \verb|ctex| 宏集选取默认字体。如你想变更中文字体，请直接在文档导言区采用 \verb|xeCJK| 宏包提供的 \verb|\setCJKmainfont| 等命令设置。例如，下面的代码会将中文字体调整为思源字体（采用伪斜体）
-\footnote{请确保您所使用的字体正确安装。}：
+\subsection{中文字体设置}
+
+中文字体方面，目前交由 C\TeX 宏集按系统自动选择默认字体。若你想变更中文字体，同样需要两个步骤：
+
+\begin{enumerate}
+  \item 为 \verb|qyxf-book| 文类传入 \verb|noCJKfont| 选项，此时 C\TeX 宏集将把模板的中文字体设置清空；
+  \item 仅完成以上一步，文档是不能编译的，还需采用 C\TeX 宏集的接口来选择其他中文字体，或采用 \verb|xeCJK| 宏包提供的命令自行设置。
+\end{enumerate}
+
+C\TeX 宏集提供了几种预定义的字体设置，除系统字体之外还包括：
+\begin{itemize}
+  \item Fandol 字体 \verb|fandol|：包括宋、楷、黑、仿宋四套字体，在 \TeX 发行版中自带，无需安装；
+  \item 方正字体 \verb|founder|：包括方正书宋、方正黑体、方正楷体、方正仿宋等若干套字体，需自行安装，配置稍复杂；
+  \item Adobe 字体：包括宋、楷、黑、仿宋四套字体，需自行安装。
+\end{itemize}
+在正确配置相关字体的情况下，可直接采用 C\TeX 宏集提供的 \verb|\ctexset| 命令配置，如下面的命令将使得模板采用 Fandol 字体：
 \begin{tcolorbox}
 \begin{verbatim}
-\setCJKmainfont[FakeItalic]{Source Han Serif SC}
+\documentclass[noCJKfont]{qyxf-book}
+\ctexset{fontset = fandol}
+\end{verbatim}
+\end{tcolorbox}
+从方便使用的角度来说，Fandol 字体无需额外配置，效果好于 Windows 系统的默认字体配置，但有缺字现象；对于需要印刷的作品，方正系列字体效果较好，字体完备
+\footnote{前提是：应安装对应于较完备的 GBK 字符集的字体文件。}
+，更适宜。
+
+除了直接调用 C\TeX 的配置外，也可采用由 \verb|xeCJK| 宏包
+\footnote{该宏包已经包含在模板中，其命令可以直接使用，无需在您的文档中载入。}
+提供的若干命令自行配置字体。例如，下列命令将使得模板采用思源系列中文字体
+\footnote{同样的，请确保相关字体已正确配置。}：
+\begin{tcolorbox}
+\begin{verbatim}
+\documentclass[noCJKfont]{qyxf-book}
+\setCJKmainfont[AutoFakeSlant]{Source Han Serif SC} % 伪斜体
 \setCJKsansfont[AutoFakeSlant]{Source Han Sans SC}
 \setCJKmonofont[AutoFakeSlant]{Source Han Sans SC}
 \end{verbatim}
 \end{tcolorbox}
-采用此种方式设定字体会触发若干警告，但对编译过程无影响。因 \verb|ctex| 相关机制，目前没有很好办法消除这一问题。
+以上命令未配置与中文字体对应的字族（如 \verb|zhsong| 之类），在一般场合没有问题。若有需要，请参考 C\TeX 文档及 \verb|xeCJK| 宏包文档进行设置。
 
 \section{问题及改进}
 
