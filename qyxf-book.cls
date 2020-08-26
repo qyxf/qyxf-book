@@ -9,30 +9,34 @@
 \ProvidesClass{qyxf-book}
   [2020/08/19 v3.0 Qian Yuan Xue Fu book template]
 \typeout{The book template provided by Qian Yuan Xue Fu}
-\PassOptionsToPackage{no-math}{fontspec}
-\PassOptionsToPackage{CJKmath = true}{xeCJK}
-\LoadClass{ctexbook}
 
 % 设定 key-val 选项
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family = QYXF, prefix = QYXF@}
 
-% 已废弃选项提示
-\DeclareOption{color}{\ClassWarning{\styname}{The option `color' is deprecated. Use `colorscheme' instead}}
-\DeclareOption{parskip}{\ClassWarning{\styname}{The option `parskip' is deprecated}}
-\DeclareOption{decoration}{\ClassWarning{\styname}{The option `decoration' is deprecated, due to the lack of `pgfornament' package in TeX Live 2020}}
-\DeclareOption{sourcefont}{\ClassWarning{\styname}{The option `sourcefont' is deprecated. Please customize your fonts by commands of `fontspec' and `xeCJK' package}}
-\DeclareOption{plain}{\ClassWarning{\styname}{The option `sourcefont' is deprecated}}
-\DeclareOption{opensource}{\ClassWarning{\styname}{The option `opensource' is deprecated}}
-
 % 选项定制与处理
 \DeclareStringOption[basic]{colorscheme}
 \DeclareBoolOption[true]{xits}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
-\ProcessKeyvalOptions*
-\ProcessOptions
+\DeclareVoidOption{noCJKfont}{\PassOptionsToClass{fontset=none}{ctexbook}}
 
-% 字体处理
+% 已废弃选项提示
+\DeclareVoidOption{color}{\ClassWarning{\styname}{The option `color' is deprecated. Use `colorscheme' instead}}
+\DeclareVoidOption{parskip}{\ClassWarning{\styname}{The option `parskip' is deprecated}}
+\DeclareVoidOption{decoration}{\ClassWarning{\styname}{The option `decoration' is deprecated, due to the lack of `pgfornament' package in TeX Live 2020}}
+\DeclareVoidOption{sourcefont}{\ClassWarning{\styname}{The option `sourcefont' is deprecated. Please customize your fonts by commands of `fontspec' and `xeCJK' package}}
+\DeclareVoidOption{plain}{\ClassWarning{\styname}{The option `sourcefont' is deprecated}}
+\DeclareVoidOption{opensource}{\ClassWarning{\styname}{The option `opensource' is deprecated}}
+
+% 处理选项
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessKeyvalOptions*
+
+% 载入文类
+\PassOptionsToPackage{no-math}{fontspec}
+\PassOptionsToPackage{CJKmath = true}{xeCJK}
+\LoadClass{ctexbook}
+
+% 西文字体处理
 \RequirePackage{amsmath}
 \ifQYXF@xits
   \setmainfont{XITS}
