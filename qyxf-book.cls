@@ -7,7 +7,7 @@
 \newcommand{\styversion}{3.0}
 \newcommand{\styname}{qyxf-book}
 \ProvidesClass{qyxf-book}
-  [2020/08/19 v3.0 Qian Yuan Xue Fu book template]
+  [2020/08/27 v3.0 Qian Yuan Xue Fu book template]
 \typeout{The book template provided by Qian Yuan Xue Fu}
 
 % 设定 key-val 选项
