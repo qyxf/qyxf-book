@@ -33,9 +33,11 @@
 
 \section{模板概况}
 
-本模板名为 \verb|qyxf-book|，意即「\emph{钱院学辅之书}」，是西安交通大学\emph{钱}学森书\emph{院学}业\emph{辅}导中心自编资料时所采用的 \LaTeX 书籍模板。
+本模板名为 \verb|qyxf-book|，意即「\emph{钱院学辅之书}」，是西安交通大学钱学森书院学业辅导中心（简称「\emph{钱院学辅}」）自编资料时所采用的 \LaTeX 书籍模板。
 
-利用 \verb|qyxf-book| 模板，我们已经生成了如下一些作品，它们都发布于\href{https://qyxf.site}{钱院学辅信息站}上，点击链接即可在浏览器中预览、下载。因各份作品采用了不同版本的 \verb|qyxf-book| 复本，且有一些个性化的定制，故观感将略有差异。
+利用 \verb|qyxf-book| 模板，我们已经生成了如下一些作品，它们都发布于钱院学辅信息站
+\footnote{网址：\url{https://qyxf.site}，其中最新资料发布于 \url{https://qyxf.site/latest/} 页面上。}
+上，点击以下各条链接即可在浏览器中预览、下载。因各份作品采用了不同版本的 \verb|qyxf-book| 复本，且有一些个性化的定制，故观感将略有差异。
 
 \begin{tcolorbox}
   \begin{description}
@@ -67,7 +69,9 @@
 
 \subsection{V2 版本}
 
-完全摆脱 Elegant\LaTeX{} 的框架，从头独立编写。与笔记模板 \verb|qyxf-note|、告示模板 \verb|qyxf-notice|（均已不再开发）共三个模板合并为 \verb|qyxf-sets| 宏集，采用 doc/docstrip 套件一同开发；后因开发成本过高，\verb|qyxf-sets| 宏集停止开发，分离出来独立开发。
+完全摆脱 Elegant\LaTeX{} 的框架，从头独立编写。与笔记模板 \verb|qyxf-note|、告示模板 \verb|qyxf-notice|（均已不再开发）共三个模板合并为 \verb|qyxf-sets| 宏集
+\footnote{代码仓库地址：\url{https://github.com/qyxf/qyxf-sets/}（已经存档，无法编辑）。}
+，采用 doc/docstrip 套件一同开发；后因这种方式的维护难度较大，\verb|qyxf-sets| 宏集停止开发，\verb|qyxf-book| 又分离出来独立开发。
 
 在 V1 的基础上趋于成熟，优化了字体、封面与章节标题样式，并初步定义了一些用户常用的环境（如数学定理）。利用 \verb|pgfornament| 重新设计了章节标题、页脚的样式，取消了配色（仅用灰度色系）。
 
@@ -96,9 +100,13 @@
 
 若需要编译由钱院学辅 2020 年 8 月前发布的资料之 \LaTeX 源码，请直接用源码中附带的 \verb|qyxf-book.cls| 文件编译，或下载 V2 系列最新版本 v2.3\footnote{链接：\url{https://gitee.com/qyxf/qyxf-book/releases/2.3}}。否则，请采用最新版本的模板套装\footnote{包括模板文件 \texttt{qyxf-book.cls} 及图片、配色方案等附件。}。
 
-\section{功能说明}
 
-以下简要说明 \verb|qyxf-book| 提供的功能及其使用方法。
+\begin{alert}
+  请采用 \hologo{XeLaTeX} 编译使用本模板，其他场合下不保证本模板的功能正常；模板未来的开发之中也不会考虑对其他 \LaTeX 引擎的支持
+  \footnote{未来新开发出来的 \LaTeX 引擎可能会被考虑。}。
+\end{alert}
+
+\section{常用功能指南}
 
 \subsection{命令与环境}
 
@@ -200,12 +208,12 @@
   \centering\small
   \caption{\texttt{qyxf-book} 中需求的元信息}
   \label{tab:metadata}
-  \begin{tabular}{cccc}
+  \begin{tabular}{llcl}
     \toprule
     元信息       & 设置命令                & 可否置空  & 默认值                     \\
     \midrule
     标题         & \verb|\title| & \ding{55} & 无                         \\
-    副标题       & \verb|\subtitle| & \ding{55} & 无                         \\
+    副标题       & \verb|\subtitle| & \ding{51} & 无                         \\
     作者         & \verb|\author| & \ding{55} & 无                         \\
     创作日期     & \verb|\date| & \ding{55} & \verb|\today|    \\
     排版者       & \verb|\typo| & \ding{51} & 无                         \\
@@ -239,14 +247,14 @@
 \cover{\includegraphics[width=0.5\textwidth]{figure/cover.pdf}}
 \end{verbatim}
 \end{tcolorbox}
-若你希望使插入元素靠向上侧，则可这样实现：
+若您希望使插入元素靠向上侧，则可这样实现：
 \begin{tcolorbox}
 \begin{verbatim}
 \cover{\includegraphics[width=0.5\textwidth]{figure/cover.pdf}%
 \vfill}
 \end{verbatim}
 \end{tcolorbox}
-后侧的 \verb|\vfill| 会将插入元素向上挤压。在另一方向上同理。除了插入图片之外，你也可以使用 \verb|\cover| 命令在首页上插入全局性命令，或使用 Ti$k$Z 环境按页面定位插入图片。
+后侧的 \verb|\vfill| 会将插入元素向上挤压。在另一方向上同理。除了插入图片之外，您也可以使用 \verb|\cover| 命令在首页上插入全局性命令，或使用 Ti$k$Z 环境按页面定位插入图片。
 
 此外，封面标题的字体大小、样式也可重新定义，字体接口及默认值如表 \ref{tab:preface-font} 所示。如有需要（如标题名称较长导致换行），请使用 \verb|\renewcommand| 命令修改。
 
@@ -306,8 +314,7 @@
 
 \subsection{中文字体设置}
 
-中文字体方面，目前交由 C\TeX 宏集按系统自动选择默认字体。若你想变更中文字体，同样需要两个步骤：
-
+中文字体方面，目前交由 C\TeX 宏集按系统自动选择默认字体。若您希望变更中文字体，同样需要两个步骤：
 \begin{enumerate}
   \item 为 \verb|qyxf-book| 文类传入 \verb|noCJKfont| 选项，此时 C\TeX 宏集将把模板的中文字体设置清空；
   \item 仅完成以上一步，文档是不能编译的，还需采用 C\TeX 宏集的接口来选择其他中文字体，或采用 \verb|xeCJK| 宏包提供的命令自行设置。
@@ -326,7 +333,7 @@ C\TeX 宏集提供了几种预定义的字体设置，除系统字体之外还�
 \ctexset{fontset = fandol}
 \end{verbatim}
 \end{tcolorbox}
-从方便使用的角度来说，Fandol 字体无需额外配置，效果好于 Windows 系统的默认字体配置，但有缺字现象；对于需要印刷的作品，方正系列字体效果较好，字体完备
+从方便使用的角度来说，Fandol 字体无需额外配置，显示效果也好于 Windows 系统的默认字体配置，但有缺字现象；对于需要印刷的作品，方正系列字体效果较好，字体完备
 \footnote{前提是：应安装对应于较完备的 GBK 字符集的字体文件。}
 ，更适宜。
 
@@ -374,7 +381,7 @@ C\TeX 宏集提供了几种预定义的字体设置，除系统字体之外还�
 \footnote{模板滞销，帮帮我们！}
 与帮助！
 
-本模板目前由\textbf{黑山雁}维护，你也可以通过邮箱联系：\url{yjr134@163.com}。
+本模板目前由\textbf{黑山雁}维护，您也可以通过邮箱联系维护者：\url{yjr134@163.com}。
 
 \subsection{可解决的问题}
 
