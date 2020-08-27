@@ -75,28 +75,29 @@
 
 % color scheme 默认值
 % for titles amd text
-\def\@title@color{black}
-\def\@list@color{black}
-\def\@caption@color{black}
-\def\@link@color{black}
+\newcommand{\@title@color}{black}
+\newcommand{\@list@color}{black}
+\newcommand{\@caption@color}{black}
+\newcommand{\@link@color}{black}
+\newcommand{\@misc@color}{black}
 % for boxes
-\def\@box@background{white}
-\def\@box@frame{black!75}
-\def\@box@title@color{white}
-\def\@box@title@background{black!50}
-\def\@box@color{black}
-\def\@alert@background{white}
-\def\@alert@color{black}
-\def\@alert@frame{\@alert@color}
-\def\@alert@title@background{black}
-\def\@alert@title@color{white}
+\newcommand{\@box@background}{white}
+\newcommand{\@box@frame}{black!75}
+\newcommand{\@box@title@color}{white}
+\newcommand{\@box@title@background}{black!50}
+\newcommand{\@box@color}{black}
+\newcommand{\@alert@background}{white}
+\newcommand{\@alert@color}{black}
+\newcommand{\@alert@frame}{black}
+\newcommand{\@alert@title@background}{black}
+\newcommand{\@alert@title@color}{white}
 % for theorems
-\def\@define@background{white}
-\def\@define@frame{black!40}
-\def\@define@color{black}
-\def\@theorem@background{black!10}
-\def\@theorem@frame{black!80}
-\def\@theorem@color{black}
+\newcommand{\@define@background}{white}
+\newcommand{\@define@frame}{black!40}
+\newcommand{\@define@color}{black}
+\newcommand{\@theorem@background}{black!10}
+\newcommand{\@theorem@frame}{black!80}
+\newcommand{\@theorem@color}{black}
 
 % 读取 color scheme
 \ifdefstring{\QYXF@colorscheme}{basic}{\relax}{%
@@ -104,7 +105,6 @@
   \input{\schemepath}}
 
 % tcolorbox 样式设定
-
 \tcbset{
   enhanced,
   noparskip,
@@ -129,12 +129,12 @@
   breakable
 }
 
-% 自定义命令
-\newcommand{\exercise}[1]{\noindent\textbf{\color{\@caption@color}练习 #1}\ }
-\newcommand{\solve}{\noindent\textbf{\color{\@caption@color}\uline{解}}\ }
-\newcommand{\analysis}{\noindent\textbf{\color{\@caption@color}\uline{分析}}\ }
+% 引导命令
+\newcommand{\exercise}[1]{\noindent\textbf{\color{\@misc@color}练习 #1}\ }
+\newcommand{\solve}{\noindent\textbf{\color{\@misc@color}\uline{解}}\ }
+\newcommand{\analysis}{\noindent\textbf{\color{\@misc@color}\uline{分析}}\ }
 
-% 自定义定理环境及样式设定
+% 定理环境及样式设定
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{define}{定义}
@@ -177,9 +177,9 @@
 \hypersetup{
   colorlinks = true,
   linkcolor = \@link@color,
-  anchorcolor = \@caption@color,
+  anchorcolor = \@misc@color,
   urlcolor = \@link@color,
-  citecolor = \@caption@color
+  citecolor = \@misc@color
 }
 
 % 章节标题与目录样式
@@ -201,8 +201,8 @@
 \setcounter{tocdepth}{2}
 
 % 页眉页脚设置
-\def\footerbox{
-  {\color{\@caption@color}\bfseries\thepage}\\[-\baselineskip]
+\newcommand{\footerbox}{%
+  {\color{\@misc@color}\bfseries\thepage}\\[-\baselineskip]
   \uline{\hphantom{\@footorginfo}}\\
   \@footorginfo}
 \RequirePackage{fancyhdr}

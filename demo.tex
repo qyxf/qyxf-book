@@ -142,10 +142,10 @@
 
 本模板支持用户自定义的配色方案，写法请参考发布版本中 \verb|colors| 目录下的文件。目前随模板一同发布的配色方案包括：
 \begin{itemize}
-  \item \verb|basic|：基本的灰度配色方案，仿效于 \verb|qyxf-book| V2 版本的设计，默认值；
-  \item \verb|bootstrap-v4|：借鉴 BootStrap V4 中的配色方案；
+  \item \verb|basic|：基本的灰度配色方案，仿效于 \verb|qyxf-book| V2 版本的设计，默认值。
+  \item \verb|bootstrap-v4|：借鉴 BootStrap V4 中的配色方案。
   \item \verb|black|：只有黑白两色，非常适合改造成其他的双色配色方案。
-  \item \verb|rbb| 红色 + 蓝色 + 黑色（Red Blue Black），在屏幕上比较醒目。
+  \item \verb|rbb|：红色 + 蓝色 + 黑色（Red Blue Black），在屏幕上比较醒目。
 \end{itemize}
 
 配色方案定制完成后，请在文档类中通过键值对的形式引用，如
@@ -154,7 +154,43 @@
 \end{tcolorbox}
 将启用 \verb|rbb| 配色方案。
 
-配色方案文件请\textbf{务必}放在待编译文件所在目录的 \verb|colors| 子目录下。关于配色方案原理、定制方法的更多说明，将在之后版本完善。
+配色方案文件请\textbf{务必}放在待编译文件所在目录的 \verb|colors| 子目录下。
+
+若您需要编写自己的配色方案，请参考表 \ref{tab:color-scheme} 所示的各项接口；建议您采用 \verb|xcolor| 宏包所提供的混色语法（如 \verb|red!50!blue|）设置对应的值，其他写法目前尚不支持。
+
+\begin{table}[htbp]
+\centering\small
+\caption{配色方案接口表}\label{tab:color-scheme}
+\begin{tabular}{llcc}
+\toprule
+条目 & 接口宏 & \parbox{5em}{\centering \texttt{basic}\\方案默认值} & 备注 \\
+\midrule
+标题文字 & \verb|\@title@color| & \verb|black| & \\
+列表标记 & \verb|\@list@color| & \verb|black| & \\
+图表标题文字 & \verb|\@caption@color| & \verb|black| & \\
+链接文字 & \verb|\@link@color| & \verb|black| & \\
+杂项文字 & \verb|\@misc@color| & \verb|black| & \parbox{7em}{页码、引用标记、引导标记等} \\
+\midrule
+盒子背景 & \verb|\@box@background| & \verb|white| & \parbox{7em}{\texttt{tcolorbox} 环境默认定义，下同} \\
+盒子边框 & \verb|\@box@frame| & \verb|black!75| & \\
+盒子标题文字 & \verb|\@box@title@color| & \verb|white| & \\
+盒子标题背景 & \verb|\@box@title@background| & \verb|black!50| & \\
+盒子文字 & \verb|\@box@color| & \verb|black| & \\
+警告盒子背景 & \verb|\@alert@background| & \verb|white| & \parbox{7em}{对 \texttt{alert} 环境定义，下同} \\
+警告盒子文字 & \verb|\@alert@color| & \verb|black| & \\
+警告盒子边框 & \verb|\@alert@frame| & \verb|black| & \\
+警告盒子标题背景 & \verb|\@alert@title@background| & \verb|black| & \\
+警告盒子标题文字 & \verb|\@alert@title@color| & \verb|white| & \\
+\midrule
+定义环境背景 & \verb|\@define@background| & \verb|white| & \parbox{7em}{对 \texttt{define} 环境定义，下同} \\
+定义环境边框 & \verb|\@define@frame| & \verb|black!40| & \\
+定义环境文字 & \verb|\@define@color| & \verb|black| & \\
+定理环境背景 & \verb|\@theorem@background| & \verb|black!10| & \parbox{7em}{对各定理类环境定义，下同} \\
+定理环境边框 & \verb|\@theorem@frame| & \verb|black!80| & \\
+定理环境文字 & \verb|\@theorem@color| & \verb|black| & \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{元信息定制}
 
