@@ -4,35 +4,39 @@
 % --------------------------
 
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\def\styversion{3.0}
-\def\styname{qyxf-book}
+\newcommand{\styversion}{3.0}
+\newcommand{\styname}{qyxf-book}
 \ProvidesClass{qyxf-book}
-  [2020/08/19 v3.0 Qian Yuan Xue Fu book template]
+  [2020/08/27 v3.0 Qian Yuan Xue Fu book template]
 \typeout{The book template provided by Qian Yuan Xue Fu}
-\PassOptionsToPackage{no-math}{fontspec}
-\PassOptionsToPackage{CJKmath = true}{xeCJK}
-\LoadClass{ctexbook}
 
 % 设定 key-val 选项
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family = QYXF, prefix = QYXF@}
 
-% 已废弃选项提示
-\DeclareOption{color}{\ClassWarning{\styname}{The option `color' is deprecated. Use `colorscheme' instead}}
-\DeclareOption{parskip}{\ClassWarning{\styname}{The option `parskip' is deprecated}}
-\DeclareOption{decoration}{\ClassWarning{\styname}{The option `decoration' is deprecated, due to the lack of `pgfornament' package in TeX Live 2020}}
-\DeclareOption{sourcefont}{\ClassWarning{\styname}{The option `sourcefont' is deprecated. Please customize your fonts by commands of `fontspec' and `xeCJK' package}}
-\DeclareOption{plain}{\ClassWarning{\styname}{The option `sourcefont' is deprecated}}
-\DeclareOption{opensource}{\ClassWarning{\styname}{The option `opensource' is deprecated}}
-
 % 选项定制与处理
-\DeclareStringOption[basic]{colorscheme}
+\DeclareStringOption[basic]{colorscheme}[basic]
 \DeclareBoolOption[true]{xits}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
-\ProcessKeyvalOptions*
-\ProcessOptions
+\DeclareVoidOption{noCJKfont}{\PassOptionsToClass{fontset=none}{ctexbook}}
 
-% 字体处理
+% 已废弃选项提示
+\DeclareVoidOption{color}{\ClassWarning{\styname}{The option `color' is deprecated. Use `colorscheme' instead}}
+\DeclareVoidOption{parskip}{\ClassWarning{\styname}{The option `parskip' is deprecated}}
+\DeclareVoidOption{decoration}{\ClassWarning{\styname}{The option `decoration' is deprecated, due to the lack of `pgfornament' package in TeX Live 2020}}
+\DeclareVoidOption{sourcefont}{\ClassWarning{\styname}{The option `sourcefont' is deprecated. Please customize your fonts by commands of `fontspec' and `xeCJK' package}}
+\DeclareVoidOption{plain}{\ClassWarning{\styname}{The option `sourcefont' is deprecated}}
+\DeclareVoidOption{opensource}{\ClassWarning{\styname}{The option `opensource' is deprecated}}
+
+% 处理选项
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ProcessKeyvalOptions*
+
+% 载入文类
+\PassOptionsToPackage{no-math}{fontspec}
+\PassOptionsToPackage{CJKmath = true}{xeCJK}
+\LoadClass{ctexbook}
+
+% 西文字体处理
 \RequirePackage{amsmath}
 \ifQYXF@xits
   \setmainfont{XITS}
@@ -46,7 +50,6 @@
 \RequirePackage{etoolbox}
 
 % 正文样式设置
-\setlength{\parskip}{0.8ex}
 \RequirePackage[normalem]{ulem}
 
 % 脚注样式调整
@@ -72,41 +75,36 @@
 
 % color scheme 默认值
 % for titles amd text
-\def\@title@color{black}
-\def\@list@color{black}
-\def\@caption@color{black}
-\def\@link@color{black}
+\newcommand{\@title@color}{black}
+\newcommand{\@list@color}{black}
+\newcommand{\@caption@color}{black}
+\newcommand{\@link@color}{black}
+\newcommand{\@misc@color}{black}
 % for boxes
-\def\@box@background{white}
-\def\@box@frame{black!75}
-\def\@box@title@color{white}
-\def\@box@title@background{black!50}
-\def\@box@color{black}
-\def\@alert@background{white}
-\def\@alert@color{black}
-\def\@alert@frame{\@alert@color}
-\def\@alert@title@background{black}
-\def\@alert@title@color{white}
+\newcommand{\@box@background}{white}
+\newcommand{\@box@frame}{black!75}
+\newcommand{\@box@title@color}{white}
+\newcommand{\@box@title@background}{black!50}
+\newcommand{\@box@color}{black}
+\newcommand{\@alert@background}{white}
+\newcommand{\@alert@color}{black}
+\newcommand{\@alert@frame}{black}
+\newcommand{\@alert@title@background}{black}
+\newcommand{\@alert@title@color}{white}
 % for theorems
-\def\@define@background{white}
-\def\@define@frame{black!40}
-\def\@define@color{black}
-\def\@theorem@background{black!10}
-\def\@theorem@frame{black!80}
-\def\@theorem@color{black}
+\newcommand{\@define@background}{white}
+\newcommand{\@define@frame}{black!40}
+\newcommand{\@define@color}{black}
+\newcommand{\@theorem@background}{black!10}
+\newcommand{\@theorem@frame}{black!80}
+\newcommand{\@theorem@color}{black}
 
 % 读取 color scheme
-\def\defaultscheme{basic}
-\ifx\QYXF@colorscheme\defaultscheme
-  \relax
-\else
-  \newcommand{\schemepath}{}
-  \edef\schemepath{colors/\QYXF@colorscheme.tex} 
-  \input{\schemepath}
-\fi
+\ifdefstring{\QYXF@colorscheme}{basic}{\relax}{%
+  \newcommand\schemepath{colors/\QYXF@colorscheme.tex} 
+  \input{\schemepath}}
 
 % tcolorbox 样式设定
-
 \tcbset{
   enhanced,
   noparskip,
@@ -131,19 +129,19 @@
   breakable
 }
 
-% 自定义命令
-\newcommand{\exercise}[1]{\noindent\textbf{\color{\@caption@color}练习 #1}\ }
-\newcommand{\solve}{\noindent\textbf{\color{\@caption@color}\uline{解}}\ }
-\newcommand{\analysis}{\noindent\textbf{\color{\@caption@color}\uline{分析}}\ }
+% 引导命令
+\newcommand{\exercise}[1]{\noindent\textbf{\color{\@misc@color}练习 #1}\ }
+\newcommand{\solve}{\noindent\textbf{\color{\@misc@color}\uline{解}}\ }
+\newcommand{\analysis}{\noindent\textbf{\color{\@misc@color}\uline{分析}}\ }
 
-% 自定义定理环境及样式设定
+% 定理环境及样式设定
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{define}{定义}
 \BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame,coltext=\@theorem@color]}
 \AfterEndEnvironment{theorem}{\end{tcolorbox}}
 \BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame,coltext=\@theorem@color]}
-  \AfterEndEnvironment{lemma}{\end{tcolorbox}}
+\AfterEndEnvironment{lemma}{\end{tcolorbox}}
 \BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\@define@background,colframe=\@define@frame,coltext=\@define@color]}
 \AfterEndEnvironment{define}{\end{tcolorbox}}
 \newtcolorbox{note}{title={注记}}
@@ -158,8 +156,9 @@
 
 % 页面设置
 \RequirePackage{geometry}
-\geometry{margin=1in}
+\geometry{margin = 1in}
 \setlength{\footskip}{30pt}
+\setlength{\headheight}{15pt}
 
 % 链接设置
 \RequirePackage[unicode]{hyperref}
@@ -176,9 +175,9 @@
 \hypersetup{
   colorlinks = true,
   linkcolor = \@link@color,
-  anchorcolor = \@caption@color,
+  anchorcolor = \@misc@color,
   urlcolor = \@link@color,
-  citecolor = \@caption@color
+  citecolor = \@misc@color
 }
 
 % 章节标题与目录样式
@@ -200,8 +199,8 @@
 \setcounter{tocdepth}{2}
 
 % 页眉页脚设置
-\def\footerbox{
-  {\color{\@caption@color}\bfseries\thepage}\\[-\baselineskip]
+\newcommand{\footerbox}{%
+  {\color{\@misc@color}\bfseries\thepage}\\[-\baselineskip]
   \uline{\hphantom{\@footorginfo}}\\
   \@footorginfo}
 \RequirePackage{fancyhdr}
@@ -211,18 +210,17 @@
 \fancyhead[ER,OL]{}
 \fancyfoot[C]{\footerbox}
 \fancypagestyle{plain}{%
-\fancyhf{}
-\fancyfoot[C]{\footerbox}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-}
-\setlength{\headheight}{13pt}
+  \fancyhf{}
+  \fancyfoot[C]{\footerbox}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}}
 
 % 列表样式设置
 \RequirePackage[shortlabels]{enumitem}
 \RequirePackage{pifont}
-\setlist{nosep, itemsep=0.5ex}
-\setlist[itemize,1]{label={\color{\@list@color}\ding{228}}, left=0.8em}
+\newcommand{\arrowmark}{\ding{228}}
+\setlist{nosep, partopsep=0.5ex}
+\setlist[itemize,1]{label={\color{\@list@color}\arrowmark}, left=0.8em}
 \setlist[itemize,2]{label={\color{\@list@color}\ding{111}}, left=2.8em}
 \setlist[itemize,3]{label={\color{\@list@color}\ding{109}}, left=4.8em}
 \setlist[enumerate,1]{label={\color{\@list@color}\textbf{\arabic*}.}, left=0.8em}
@@ -248,10 +246,9 @@
 \newcommand{\typo}[1]{\gdef\@typo{#1}}
 \newcommand{\@cover}{}
 \newcommand{\cover}[1]{\gdef\@cover{#1}}
-\newcommand{\@orginfo}{
+\newcommand{\@orginfo}{%
   \textit{钱学森书院学业辅导中心}\\[1ex]
-  \textsc{Xi'an Jiaotong University}
-}
+  \textsc{Xi'an Jiaotong University}}
 \newcommand{\org}[1]{\gdef\@orginfo{#1}}
 \newcommand{\@footorginfo}{\textsc{Qian Yuan Xue Fu}}
 \newcommand{\footorg}[1]{\gdef\@footorginfo{#1}}
@@ -268,65 +265,64 @@
 \newcommand{\version}[1]{\ClassWarning{\styname}{The metadata item `version' is deprecated}}
 \newcommand{\sourcepage}[1]{\ClassWarning{\styname}{The metadata item `sourcepage' is deprecated}}
 
-% 标题样式重定义
+% 封面样式重定义
 \newcommand{\titlefont}{\Huge\bfseries}
 \newcommand{\subtitlefont}{\huge\itshape}
 \newcommand{\authorfont}{\LARGE\itshape}
 \newcommand{\datefont}{\Large}
 \renewcommand*{\maketitle}{%
-\hypersetup{
-  pageanchor=false,
-  pdfauthor=\@author,
-  pdftitle=\@title,
-  pdfsubject={\@author: \@title\ifdefempty\@subtitle{}{ - \textit{\@subtitle}}},
-  pdfkeywords={qyxf, book},
-  pdfcreator={XeLaTeX with qyxf-book class}
-}
-\begin{titlepage}
-\null
-\begin{center}\large
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@frame},%
-left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
-{\color{\@title@color}\titlefont\@title}
-\ifdefempty\@subtitle{}{\\[1ex]{\color{\@title@color}\subtitlefont\@subtitle}}
-\end{tcolorbox}
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@title@color},%
-left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
-{\authorfont\@author}\\\datefont\@date
-\end{tcolorbox}
-\vfil\@cover\vfil
-\vbox{\@orginfo}
-\end{center}
-\vfilneg
-\end{titlepage}
-\thispagestyle{empty}
-\newpage
-\hypersetup{pageanchor=true}
-\null\vfill
-\begin{tcolorbox}[title={\bfseries 作品信息}]
-\ding{228} \textbf{标题：}\@title{}
-\ifdefempty\@subtitle{}{: \textit{\@subtitle}}\\
-\ding{228} \textbf{作者：}\@author\\
-\ifdefempty{\@typo}{}{\ding{228} \textbf{校对排版：}\@typo\\}
-\ding{228} \textbf{出品时间：}\@date\\
-\ding{228} \textbf{总页数：}\pageref{LastPage}
-\end{tcolorbox}
-\ifdefempty\@licenseinfo{}{
-  \begin{tcolorbox}[title={\bfseries 许可证说明}]
-  \@licenseinfo
+  \begin{titlepage}
+  \null
+  \begin{center}\large
+  \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@frame},%
+  left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
+  {\color{\@title@color}\titlefont\@title}
+  \ifdefempty\@subtitle{}{\\[1ex]{\color{\@title@color}\subtitlefont\@subtitle}}
   \end{tcolorbox}
-}
-\newpage
-\pagestyle{fancy}
-}
+  \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@title@color},%
+  left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
+  {\authorfont\@author}\\\datefont\@date
+  \end{tcolorbox}
+  \vfil\@cover\vfil
+  \vbox{\@orginfo}
+  \end{center}
+  \vfilneg
+  \end{titlepage}
+  \thispagestyle{empty}
+  \newpage
+  \hypersetup{pageanchor=true}
+  \null\vfill
+  \begin{tcolorbox}[title={\bfseries 作品信息}]
+  \arrowmark \textbf{标题：}\@title{}
+  \ifdefempty\@subtitle{}{: \textit{\@subtitle}}\\
+  \arrowmark \textbf{作者：}\@author\\
+  \ifdefempty{\@typo}{}{\arrowmark \textbf{校对排版：}\@typo\\}
+  \arrowmark \textbf{出品时间：}\@date\\
+  \arrowmark \textbf{总页数：}\pageref{LastPage}
+  \end{tcolorbox}
+  \ifdefempty\@licenseinfo{}{%
+    \begin{tcolorbox}[title={\bfseries 许可证说明}]
+    \@licenseinfo
+    \end{tcolorbox}}
+  \newpage
+  \pagestyle{fancy}}
+\AtBeginDocument{%
+  \hypersetup{
+    pageanchor=false,
+    pdfauthor=\@author,
+    pdftitle=\@title,
+    pdfsubject={\@author: \@title\ifdefempty{\@subtitle}{}{ - \textit{\@subtitle}}},
+    pdfkeywords={qyxf, book},
+    pdfcreator={XeLaTeX with \styname\ v\styversion\ \ifdefempty{\@typo}{}{(by \@typo)}}
+  }}
 
 % 目录样式重定义
 \renewcommand\tableofcontents{%
 \pagestyle{empty}
-\centerline{%
+\begin{center}%
 \normalfont\LARGE\bfseries\contentsname%
 \@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}
-}
+\end{center}
 \vskip 3ex%
 {\setlength\parskip{0pt}\@starttoc{toc}}
 \cleardoublepage
