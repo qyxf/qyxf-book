@@ -4,8 +4,8 @@
 % --------------------------
 
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\def\styversion{3.0}
-\def\styname{qyxf-book}
+\newcommand{\styversion}{3.0}
+\newcommand{\styname}{qyxf-book}
 \ProvidesClass{qyxf-book}
   [2020/08/19 v3.0 Qian Yuan Xue Fu book template]
 \typeout{The book template provided by Qian Yuan Xue Fu}
@@ -156,11 +156,9 @@
 
 % 页面设置
 \RequirePackage{geometry}
-\geometry{
-  margin = 1in,
-  footskip = .25in
-  }
+\geometry{margin = 1in}
 \setlength{\footskip}{30pt}
+\setlength{\headheight}{15pt}
 
 % 链接设置
 \RequirePackage[unicode]{hyperref}
@@ -212,18 +210,16 @@
 \fancyhead[ER,OL]{}
 \fancyfoot[C]{\footerbox}
 \fancypagestyle{plain}{%
-\fancyhf{}
-\fancyfoot[C]{\footerbox}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-}
-\setlength{\headheight}{15pt}
+  \fancyhf{}
+  \fancyfoot[C]{\footerbox}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}}
 
 % 列表样式设置
 \RequirePackage[shortlabels]{enumitem}
 \RequirePackage{pifont}
 \newcommand{\arrowmark}{\ding{228}}
-\setlist{nosep, itemsep=0.5ex}
+\setlist{nosep, partopsep=0.5ex}
 \setlist[itemize,1]{label={\color{\@list@color}\arrowmark}, left=0.8em}
 \setlist[itemize,2]{label={\color{\@list@color}\ding{111}}, left=2.8em}
 \setlist[itemize,3]{label={\color{\@list@color}\ding{109}}, left=4.8em}
@@ -250,10 +246,9 @@
 \newcommand{\typo}[1]{\gdef\@typo{#1}}
 \newcommand{\@cover}{}
 \newcommand{\cover}[1]{\gdef\@cover{#1}}
-\newcommand{\@orginfo}{
+\newcommand{\@orginfo}{%
   \textit{钱学森书院学业辅导中心}\\[1ex]
-  \textsc{Xi'an Jiaotong University}
-}
+  \textsc{Xi'an Jiaotong University}}
 \newcommand{\org}[1]{\gdef\@orginfo{#1}}
 \newcommand{\@footorginfo}{\textsc{Qian Yuan Xue Fu}}
 \newcommand{\footorg}[1]{\gdef\@footorginfo{#1}}
@@ -270,57 +265,56 @@
 \newcommand{\version}[1]{\ClassWarning{\styname}{The metadata item `version' is deprecated}}
 \newcommand{\sourcepage}[1]{\ClassWarning{\styname}{The metadata item `sourcepage' is deprecated}}
 
-% 标题样式重定义
+% 封面样式重定义
 \newcommand{\titlefont}{\Huge\bfseries}
 \newcommand{\subtitlefont}{\huge\itshape}
 \newcommand{\authorfont}{\LARGE\itshape}
 \newcommand{\datefont}{\Large}
 \renewcommand*{\maketitle}{%
-\hypersetup{
-  pageanchor=false,
-  pdfauthor=\@author,
-  pdftitle=\@title,
-  pdfsubject={\@author: \@title\ifdefempty\@subtitle{}{ - \textit{\@subtitle}}},
-  pdfkeywords={qyxf, book},
-  pdfcreator={XeLaTeX with qyxf-book class}
-}
-\begin{titlepage}
-\null
-\begin{center}\large
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@frame},%
-left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
-{\color{\@title@color}\titlefont\@title}
-\ifdefempty\@subtitle{}{\\[1ex]{\color{\@title@color}\subtitlefont\@subtitle}}
-\end{tcolorbox}
-\begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@title@color},%
-left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
-{\authorfont\@author}\\\datefont\@date
-\end{tcolorbox}
-\vfil\@cover\vfil
-\vbox{\@orginfo}
-\end{center}
-\vfilneg
-\end{titlepage}
-\thispagestyle{empty}
-\newpage
-\hypersetup{pageanchor=true}
-\null\vfill
-\begin{tcolorbox}[title={\bfseries 作品信息}]
-\arrowmark \textbf{标题：}\@title{}
-\ifdefempty\@subtitle{}{: \textit{\@subtitle}}\\
-\arrowmark \textbf{作者：}\@author\\
-\ifdefempty{\@typo}{}{\arrowmark \textbf{校对排版：}\@typo\\}
-\arrowmark \textbf{出品时间：}\@date\\
-\arrowmark \textbf{总页数：}\pageref{LastPage}
-\end{tcolorbox}
-\ifdefempty\@licenseinfo{}{
-  \begin{tcolorbox}[title={\bfseries 许可证说明}]
-  \@licenseinfo
+  \begin{titlepage}
+  \null
+  \begin{center}\large
+  \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@frame},%
+  left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
+  {\color{\@title@color}\titlefont\@title}
+  \ifdefempty\@subtitle{}{\\[1ex]{\color{\@title@color}\subtitlefont\@subtitle}}
   \end{tcolorbox}
-}
-\newpage
-\pagestyle{fancy}
-}
+  \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@title@color},%
+  left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
+  {\authorfont\@author}\\\datefont\@date
+  \end{tcolorbox}
+  \vfil\@cover\vfil
+  \vbox{\@orginfo}
+  \end{center}
+  \vfilneg
+  \end{titlepage}
+  \thispagestyle{empty}
+  \newpage
+  \hypersetup{pageanchor=true}
+  \null\vfill
+  \begin{tcolorbox}[title={\bfseries 作品信息}]
+  \arrowmark \textbf{标题：}\@title{}
+  \ifdefempty\@subtitle{}{: \textit{\@subtitle}}\\
+  \arrowmark \textbf{作者：}\@author\\
+  \ifdefempty{\@typo}{}{\arrowmark \textbf{校对排版：}\@typo\\}
+  \arrowmark \textbf{出品时间：}\@date\\
+  \arrowmark \textbf{总页数：}\pageref{LastPage}
+  \end{tcolorbox}
+  \ifdefempty\@licenseinfo{}{%
+    \begin{tcolorbox}[title={\bfseries 许可证说明}]
+    \@licenseinfo
+    \end{tcolorbox}}
+  \newpage
+  \pagestyle{fancy}}
+\AtBeginDocument{%
+  \hypersetup{
+    pageanchor=false,
+    pdfauthor=\@author,
+    pdftitle=\@title,
+    pdfsubject={\@author: \@title\ifdefempty{\@subtitle}{}{ - \textit{\@subtitle}}},
+    pdfkeywords={qyxf, book},
+    pdfcreator={XeLaTeX with \styname\ v\styversion\ \ifdefempty{\@typo}{}{(by \@typo)}}
+  }}
 
 % 目录样式重定义
 \renewcommand\tableofcontents{%
