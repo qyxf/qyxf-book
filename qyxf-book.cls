@@ -15,7 +15,7 @@
 \SetupKeyvalOptions{family = QYXF, prefix = QYXF@}
 
 % 选项定制与处理
-\DeclareStringOption[basic]{colorscheme}
+\DeclareStringOption[basic]{colorscheme}[basic]
 \DeclareBoolOption[true]{xits}
 \DeclareVoidOption{noCJKfont}{\PassOptionsToClass{fontset=none}{ctexbook}}
 
@@ -99,14 +99,9 @@
 \def\@theorem@color{black}
 
 % 读取 color scheme
-\def\defaultscheme{basic}
-\ifx\QYXF@colorscheme\defaultscheme
-  \relax
-\else
-  \newcommand{\schemepath}{}
-  \edef\schemepath{colors/\QYXF@colorscheme.tex} 
-  \input{\schemepath}
-\fi
+\ifdefstring{\QYXF@colorscheme}{basic}{\relax}{%
+  \newcommand\schemepath{colors/\QYXF@colorscheme.tex} 
+  \input{\schemepath}}
 
 % tcolorbox 样式设定
 
