@@ -1,5 +1,9 @@
 #!/bin/bash
-# please exec the script under current direcotry
+# package.sh
+# NOTE: 本脚本用于生成发布到 CTAN 上的模板压缩包，一般用户请忽略
+# NOTE: please exec the script under current direcotry
+# @author-by: xjtu-blacksmith
+# @create-on: 2020/9/11
 
 cd ../
 if [ -d qyxf-book ]; then rm -r qyxf-book; fi
