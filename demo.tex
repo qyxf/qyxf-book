@@ -4,7 +4,7 @@
   twoside,
   openany,
   b5paper, % 以上均为 ctexbook 提供的文类选项
-  colorscheme = basic % 请根据需要选择或定制配色方案
+  colorscheme = basic, % 请根据需要选择或定制配色方案
 ]{qyxf-book}
 
 \title{钱院学辅 \LaTeX 书籍模板}
@@ -90,7 +90,7 @@
 
 当前版本。在 V2 版本之上进一步改进了之前的问题，并向通用、可定制的方向前进一大步。
 
-在字体方面，移除了中文字体备选项，完全采用 C\TeX 宏集的默认设置；西文及数学内容采用 \TeX 发行版附带的 XITS 字体，由此使模板本身完全摆脱对外部字体的依赖\footnote{字体的定制交由用户完成，本模板不参与其中。}。
+在字体方面，移除了中文字体备选项，完全采用 C\TeX 宏集的默认设置；西文及数学内容采用 \TeX 发行版附带的 XITS 字体，使模板进一步减少了对外部字体的依赖\footnote{字体的定制交由用户完成，本模板不参与其中。}。
 
 在样式方面，综合若干书籍及网页模板重设了各类元素的尺寸、间距，并完全移除了原由 \verb|pgfornament| 与 \verb|pgfornament-han| 宏包所实现的装饰\footnote{一方面，是因为 \TeX Live 2020 中这两个宏包未被容纳进来；另一方面，目前也发现装饰的存在不利于样式的修改、定制，且对阅读效果并无明显改善。}。
 
@@ -98,8 +98,7 @@
 
 \subsection{我该用哪一个版本？}
 
-若需要编译由钱院学辅 2020 年 8 月前发布的资料之 \LaTeX 源码，请直接用源码中附带的 \verb|qyxf-book.cls| 文件编译，或下载 V2 系列最新版本 v2.3\footnote{链接：\url{https://gitee.com/qyxf/qyxf-book/releases/2.3}}。否则，请采用最新版本的模板套装\footnote{包括模板文件 \texttt{qyxf-book.cls} 及图片、配色方案等附件。}。
-
+若需要编译由钱院学辅 2020 年 8 月前发布的资料之 \LaTeX 源码，请直接用源码中附带的 \verb|qyxf-book.cls| 文件编译，或下载 V2 系列最新版本 v2.3\footnote{链接：\url{https://gitee.com/qyxf/qyxf-book/releases/2.3}}。否则，请采用最新版本的模板文件。
 
 \begin{alert}
   请采用 \hologo{XeLaTeX} 编译使用本模板，其他场合下不保证本模板的功能正常；模板未来的开发之中也不会考虑对其他 \LaTeX 引擎的支持
@@ -117,8 +116,10 @@
         \footnote{模板中没有为这个命令设置自动编号，主要是因为编写题解的过程中常出现选题、
         跳题的情况，且自动编号下不易从源代码中找到对应题目。}
         （可留空），如 \verb|\exercise{1}| 将生成：\exercise{1}。
-  \item \verb|\solve|：生成一个「解」的标记：\solve。
-  \item \verb|\analysis|：生成一个「分析」的标记：\analysis。
+  \item \verb|\solve|：生成一个「解」的标记：\solve。（其可以接受一个可选参数来替换「解」字
+  \footnote{你可以通过这个特性定义自己需要的标记命令，下面的分析标记同理。}）
+  ，如 \verb|\solve[答]| 将生成：\solve[答]。
+  \item \verb|\analysis|：生成一个「分析」的标记：\analysis。（其可以接受一个参数来替换「分析」二字，如 \verb|\analysis[注记]| 将生成：\analysis[注记]。）
 \end{itemize}
 
 除此之外，还提供了常见的用户环境，包括：
@@ -127,7 +128,7 @@
   \item 定义类环境：定义 \verb|definition|
   \item 其他环境：注记 \verb|note|、警告 \verb|alert|
 \end{itemize}
-其中，定理、定义类环境属于数学环境，采用 \LaTeX 原生机制定义，仅在外围包裹一层装饰用的盒子；因此，可按照通常的写法编写数学环境，如：
+其中，定理、定义类环境属于数学类环境，采用 \LaTeX 原生机制定义，仅在外围包裹一层装饰用的盒子；因此，可按照通常的写法编写数学类环境，如：
 \begin{tcolorbox}
   \begin{verbatim}
 \begin{theorem}[L'H\^opital 法则]
@@ -148,24 +149,54 @@
 
 \subsection{配色方案定制}
 
-本模板支持用户自定义的配色方案，写法请参考发布版本中 \verb|colors| 目录下的文件。目前随模板一同发布的配色方案包括：
-\begin{itemize}
-  \item \verb|basic|：基本的灰度配色方案，仿效于 \verb|qyxf-book| V2 版本的设计，默认值。
-  \item \verb|bootstrap-v4|：借鉴 BootStrap V4 中的配色方案。
-  \item \verb|black|：只有黑白两色，非常适合改造成其他的双色配色方案。
-  \item \verb|rbb|：红色 + 蓝色 + 黑色（Red Blue Black），在屏幕上比较醒目。
-\end{itemize}
+\subsubsection{预定义配色方案}
 
-配色方案定制完成后，请在文档类中通过键值对的形式引用，如
+目前，模板中已预定义的配色方案包括：
+\begin{itemize}
+  \item \verb|basic|：默认的灰度配色方案，与 \verb|qyxf-book| V2 版本中的配色接近。
+  \item \verb|black|：只有黑白两色的配色方案。可以很容易的调整为\emph{自定义双色方案}。
+  \item \verb|rbb|：红色 + 蓝色 + 黑色（Red Blue Black）的配色方案。可以很容易的调整为\emph{自定义三色方案}。
+  \item \verb|bootstrap-v4|：借鉴 BootStrap V4 中的配色方案。
+\end{itemize}
+欲使用以上的方案，请在文档类中通过键值对的形式引用，如
 \begin{tcolorbox}
 \verb|colorsheme = rbb| 
 \end{tcolorbox}
 将启用 \verb|rbb| 配色方案。
 
-配色方案文件请\textbf{务必}放在待编译文件所在目录的 \verb|colors| 子目录下。
+\subsubsection{双色\&三色方案快速生成}
+为方便用户快速修改预定义配色方案，模板为双色方案 \verb|black| 和三色方案 \verb|rbb| 设计了两个文类选项：
+\begin{itemize}
+  \item \verb|primary|：主色，相当于 \verb|black| 中的黑色及 \verb|rbb| 中的蓝色；
+  \item \verb|seconadry|：辅助色，只对 \verb|rbb| 方案生效，相当于 \verb|rbb| 中的红色。
+\end{itemize}
+若您想快速定义一个自己的双色或三色配色方案，可直接通过以上两个文类选项设置。例如，若您希望使用橙 + 黑的双色主题，可通过以下的文类选项实现：
+\begin{tcolorbox}
+\begin{verbatim}
+\documentclass[
+  colorscheme = black,  % 载入双色主题，此时主色为黑色
+  primary = orange  % 将主色改为橙色
+]{qyxf-book}
+\end{verbatim}
+\end{tcolorbox}
+而如果您希望使用橙 + 紫 + 黑的三色主题，则可通过以下的文类选项实现：
+\begin{tcolorbox}
+\begin{verbatim}
+  \documentclass[
+    colorscheme = rbb,  % 载入三色主题
+    primary = orange,  % 将主色改为橙色
+    secondary = violet  % 将辅助色改为紫色
+  ]{qyxf-book}
+\end{verbatim}
+\end{tcolorbox}
 
-若您需要编写自己的配色方案，请参考表 \ref{tab:color-scheme} 所示的各项接口；建议您采用 \verb|xcolor| 宏包所提供的混色语法（如 \verb|red!50!blue|）设置对应的值，其他写法目前尚不支持。
+\begin{alert}
+请采用 \verb|xcolor| 宏包所提供的混色语法（如 \verb|red!50!blue|）设置对应的值，其他写法目前尚不支持。下同。
+\end{alert}
 
+\subsubsection{自定义配色方案}
+
+若您需要编写自己的配色方案，请通过 \verb|\renewcommand| 命令修改表 \ref{tab:color-scheme} 所示的各项接口，在预定义主题的基础上修改相应颜色值。
 \begin{table}[htbp]
 \centering\small
 \caption{配色方案接口表}\label{tab:color-scheme}
@@ -173,32 +204,42 @@
 \toprule
 条目 & 接口宏 & \parbox{5em}{\centering \texttt{basic}\\方案默认值} & 备注 \\
 \midrule
-标题文字 & \verb|\@title@color| & \verb|black| & \\
-列表标记 & \verb|\@list@color| & \verb|black| & \\
-图表标题文字 & \verb|\@caption@color| & \verb|black| & \\
-链接文字 & \verb|\@link@color| & \verb|black| & \\
-杂项文字 & \verb|\@misc@color| & \verb|black| & \parbox{7em}{页码、引用标记、引导标记等} \\
+标题文字 & \verb|\TitleColor| & \verb|black| & \\
+列表标记 & \verb|\ListColor| & \verb|black| & \\
+图表标题文字 & \verb|\CaptionColor| & \verb|black| & \\
+链接文字 & \verb|\LinkColor| & \verb|black| & \\
+杂项文字 & \verb|\MiscColor| & \verb|black| & \parbox{7em}{页码、引用标记、引导标记等} \\
 \midrule
-盒子背景 & \verb|\@box@background| & \verb|white| & \parbox{7em}{\texttt{tcolorbox} 环境默认定义，下同} \\
-盒子边框 & \verb|\@box@frame| & \verb|black!75| & \\
-盒子标题文字 & \verb|\@box@title@color| & \verb|white| & \\
-盒子标题背景 & \verb|\@box@title@background| & \verb|black!50| & \\
-盒子文字 & \verb|\@box@color| & \verb|black| & \\
-警告盒子背景 & \verb|\@alert@background| & \verb|white| & \parbox{7em}{对 \texttt{alert} 环境定义，下同} \\
-警告盒子文字 & \verb|\@alert@color| & \verb|black| & \\
-警告盒子边框 & \verb|\@alert@frame| & \verb|black| & \\
-警告盒子标题背景 & \verb|\@alert@title@background| & \verb|black| & \\
-警告盒子标题文字 & \verb|\@alert@title@color| & \verb|white| & \\
+盒子背景 & \verb|\BoxBackground| & \verb|white| & \parbox{7em}{\texttt{tcolorbox} 环境默认定义，下同} \\
+盒子边框 & \verb|\BoxFrame| & \verb|black!75| & \\
+盒子标题文字 & \verb|\BoxTitleColor| & \verb|white| & \\
+盒子标题背景 & \verb|\BoxTitleBackground| & \verb|black!50| & \\
+盒子文字 & \verb|\BoxColor| & \verb|black| & \\
+警告盒子背景 & \verb|\AlertBackground| & \verb|white| & \parbox{7em}{对 \texttt{alert} 环境定义，下同} \\
+警告盒子文字 & \verb|\AlertColor| & \verb|black| & \\
+警告盒子边框 & \verb|\AlertFrame| & \verb|black| & \\
+警告盒子标题背景 & \verb|\AlertTitleBackground| & \verb|black| & \\
+警告盒子标题文字 & \verb|\AlertTitleColor| & \verb|white| & \\
 \midrule
-定义环境背景 & \verb|\@define@background| & \verb|white| & \parbox{7em}{对 \texttt{define} 环境定义，下同} \\
-定义环境边框 & \verb|\@define@frame| & \verb|black!40| & \\
-定义环境文字 & \verb|\@define@color| & \verb|black| & \\
-定理环境背景 & \verb|\@theorem@background| & \verb|black!10| & \parbox{7em}{对各定理类环境定义，下同} \\
-定理环境边框 & \verb|\@theorem@frame| & \verb|black!80| & \\
-定理环境文字 & \verb|\@theorem@color| & \verb|black| & \\
+定义环境背景 & \verb|\DefineBackground| & \verb|white| & \parbox{7em}{对 \texttt{define} 环境定义，下同} \\
+定义环境边框 & \verb|\DefineFrame| & \verb|black!40| & \\
+定义环境文字 & \verb|\DefineColor| & \verb|black| & \\
+定理环境背景 & \verb|\TheoremBackground| & \verb|black!10| & \parbox{7em}{对各定理类环境定义，下同} \\
+定理环境边框 & \verb|\TheoremFrame| & \verb|black!80| & \\
+定理环境文字 & \verb|\TheoremColor| & \verb|black| & \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+需要注意的是，在重定义链接及盒子环境的配色时，可能因设置命令提前展开接口而无法生效；在此情况下，请使用 \verb|\selectcolor| 命令强制更新这些颜色的值。例如，要变更链接颜色 \verb|\LinkColor| 及盒子文字颜色 \verb|\BoxColor| 为 \verb|red!50|，请通过以下命令实现：
+
+\begin{tcolorbox}
+\begin{verbatim}
+\renewcommand{\LinkColor}{red!50}
+\renewcommand{\BoxColor}{red!50}
+\selectcolor  % 更新颜色
+\end{verbatim}
+\end{tcolorbox}
 
 \subsection{元信息定制}
 
@@ -240,18 +281,19 @@
 
 \subsection{封面定制}
 
-本模板提供了简易的封面定制接口，通过 \verb|\cover| 命令来填写封面上需要的内容。例如，需要将本模板中自带的 \verb|cover.pdf| 文件插入到封面中心，通过以下命令即可：
+本模板提供了简易的封面定制接口，通过 \verb|\cover| 命令来填写封面上需要的内容。例如，需要将本模板中自带的 \verb|qyxf-logo.pdf| 文件插入到封面中心，通过以下命令即可：
 
 \begin{tcolorbox}
 \begin{verbatim}
-\cover{\includegraphics[width=0.5\textwidth]{figure/cover.pdf}}
+\cover{\includegraphics[width=0.5\textwidth]%
+{figure/qyxf-logo.pdf}}
 \end{verbatim}
 \end{tcolorbox}
 若您希望使插入元素靠向上侧，则可这样实现：
 \begin{tcolorbox}
 \begin{verbatim}
-\cover{\includegraphics[width=0.5\textwidth]{figure/cover.pdf}%
-\vfill}
+\cover{\includegraphics[width=0.5\textwidth]%
+{figure/qyxf-logo.pdf}\vfill}
 \end{verbatim}
 \end{tcolorbox}
 后侧的 \verb|\vfill| 会将插入元素向上挤压。在另一方向上同理。除了插入图片之外，您也可以使用 \verb|\cover| 命令在首页上插入全局性命令，或使用 Ti$k$Z 环境按页面定位插入图片。
@@ -289,7 +331,7 @@
 
 \subsection{西文字体设置}
 
-西文字体方面，目前采用 XITS 系列字体
+西文字体方面，目前采用与 Times 系列字体相近的 XITS 系列字体
 \footnote{无衬线体采用接近于 Helvetica 的 \TeX{} Gyre Heros。}
 。如您想变更西文字体，请完成以下两个步骤：
 
@@ -456,7 +498,7 @@ C\TeX 宏集提供了几种预定义的字体设置，除系统字体之外还�
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=.3\textwidth]{cover.pdf}
+  \includegraphics[width=.3\textwidth]{qyxf-cover.pdf}
   \caption{V2 版本的封面图片}
   \label{fig:qyxf-logo}
 \end{figure}
