@@ -371,7 +371,7 @@
   \begin{itemize}
     \item \textbf{标题：}\@title{}\ifdefempty\@subtitle{}{: \textit{\@subtitle}}
     \item \textbf{作者：}\@author%
-    \ifdefempty{\@typo}{}{\item \textbf{校对排版：}\@typo\\}
+    \ifdefempty{\@typo}{}{\item \textbf{校对排版：}\@typo}
     \item \textbf{出品时间：}\@date
     \item \textbf{总页数：}\pageref{LastPage}
   \end{itemize}
