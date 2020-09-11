@@ -368,12 +368,13 @@
   \hypersetup{pageanchor=true}
   \null\vfill
   \begin{tcolorbox}[title={\bfseries 作品信息}]
-  \arrowmark \textbf{标题：}\@title{}
-  \ifdefempty\@subtitle{}{: \textit{\@subtitle}}\\
-  \arrowmark \textbf{作者：}\@author\\
-  \ifdefempty{\@typo}{}{\arrowmark \textbf{校对排版：}\@typo\\}
-  \arrowmark \textbf{出品时间：}\@date\\
-  \arrowmark \textbf{总页数：}\pageref{LastPage}
+  \begin{itemize}
+    \item \textbf{标题：}\@title{}\ifdefempty\@subtitle{}{: \textit{\@subtitle}}
+    \item \textbf{作者：}\@author%
+    \ifdefempty{\@typo}{}{\item \textbf{校对排版：}\@typo\\}
+    \item \textbf{出品时间：}\@date
+    \item \textbf{总页数：}\pageref{LastPage}
+  \end{itemize}
   \end{tcolorbox}
   \ifdefempty\@licenseinfo{}{%
     \begin{tcolorbox}[title={\bfseries 许可证说明}]
