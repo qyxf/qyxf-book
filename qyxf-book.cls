@@ -4,10 +4,10 @@
 % --------------------------
 
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
-\newcommand{\styversion}{3.0}
+\newcommand{\styversion}{3.0.1}
 \newcommand{\styname}{qyxf-book}
 \ProvidesClass{qyxf-book}
-  [2020/08/27 v3.0 Qian Yuan Xue Fu book template]
+  [2020/09/11 v3.0.1 Qian Yuan Xue Fu book template]
 \typeout{The book template provided by Qian Yuan Xue Fu}
 
 % 设定 key-val 选项
