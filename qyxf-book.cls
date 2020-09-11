@@ -16,6 +16,8 @@
 
 % 选项定制与处理
 \DeclareStringOption[basic]{colorscheme}[basic]
+\DeclareStringOption{primary}
+\DeclareStringOption{secondary}
 \DeclareBoolOption[true]{xits}
 \DeclareVoidOption{noCJKfont}{\PassOptionsToClass{fontset=none}{ctexbook}}
 
@@ -46,9 +48,6 @@
 \fi
 \RequirePackage{hologo}
 
-% etoolbox
-\RequirePackage{etoolbox}
-
 % 正文样式设置
 \RequirePackage[normalem]{ulem}
 
@@ -67,54 +66,128 @@
 
 % caption 样式设定
 \RequirePackage{caption}
-\DeclareCaptionFormat{colored}{\small{\bfseries\color{\@caption@color}#1} #3}
+\DeclareCaptionFormat{colored}{\small{\bfseries\color{\CaptionColor}#1} #3}
 \captionsetup{
   format = colored,
   skip = 1ex
 }
 
+% 处理配色方案
+\RequirePackage{etoolbox}
+\ifdefempty{\QYXF@primary}{\relax}{\newcommand{\PrimaryColor}{\QYXF@primary}}
+\ifdefempty{\QYXF@secondary}{\relax}{\newcommand{\SecondaryColor}{\QYXF@secondary}}
+
 % color scheme 默认值
+
 % for titles amd text
-\newcommand{\@title@color}{black}
-\newcommand{\@list@color}{black}
-\newcommand{\@caption@color}{black}
-\newcommand{\@link@color}{black}
-\newcommand{\@misc@color}{black}
+\newcommand{\TitleColor}{black}
+\newcommand{\ListColor}{black}
+\newcommand{\CaptionColor}{black}
+\newcommand{\LinkColor}{black}
+\newcommand{\MiscColor}{black}
 % for boxes
-\newcommand{\@box@background}{white}
-\newcommand{\@box@frame}{black!75}
-\newcommand{\@box@title@color}{white}
-\newcommand{\@box@title@background}{black!50}
-\newcommand{\@box@color}{black}
-\newcommand{\@alert@background}{white}
-\newcommand{\@alert@color}{black}
-\newcommand{\@alert@frame}{black}
-\newcommand{\@alert@title@background}{black}
-\newcommand{\@alert@title@color}{white}
+\newcommand{\BoxBackground}{white}
+\newcommand{\BoxFrame}{black!75}
+\newcommand{\BoxTitleColor}{white}
+\newcommand{\BoxTitleBackground}{black!50}
+\newcommand{\BoxColor}{black}
+\newcommand{\AlertBackground}{white}
+\newcommand{\AlertColor}{black}
+\newcommand{\AlertFrame}{black}
+\newcommand{\AlertTitleBackground}{black}
+\newcommand{\AlertTitleColor}{white}
 % for theorems
-\newcommand{\@define@background}{white}
-\newcommand{\@define@frame}{black!40}
-\newcommand{\@define@color}{black}
-\newcommand{\@theorem@background}{black!10}
-\newcommand{\@theorem@frame}{black!80}
-\newcommand{\@theorem@color}{black}
+\newcommand{\DefineBackground}{white}
+\newcommand{\DefineFrame}{black!40}
+\newcommand{\DefineColor}{black}
+\newcommand{\TheoremBackground}{black!10}
+\newcommand{\TheoremFrame}{black!80}
+\newcommand{\TheoremColor}{black}
 
 % 读取 color scheme
-\ifdefstring{\QYXF@colorscheme}{basic}{\relax}{%
-  \newcommand\schemepath{colors/\QYXF@colorscheme.tex} 
-  \input{\schemepath}}
+\RequirePackage{xstring}
+\IfEqCase{\QYXF@colorscheme}{%
+  {basic}{\relax}% Basic theme
+  {black}{% BLack theme (bicolor)
+    % main colors
+    \providecommand\PrimaryColor{black}
+    % for titles amd text
+    \renewcommand\TitleColor{\PrimaryColor}
+    \renewcommand\ListColor{\PrimaryColor}
+    \renewcommand\CaptionColor{\PrimaryColor}
+    \renewcommand\LinkColor{\PrimaryColor}
+    \renewcommand\MiscColor{\PrimaryColor}
+    % for boxes
+    \renewcommand\BoxBackground{white}
+    \renewcommand\BoxTitleColor{\PrimaryColor}
+    \renewcommand\BoxTitleBackground{white}
+    \renewcommand\BoxFrame{\PrimaryColor}
+    \renewcommand\AlertTitleColor{white}
+    \renewcommand\AlertTitleBackground{\PrimaryColor}
+    % for theorems
+    \renewcommand\DefineFrame{\PrimaryColor}
+    \renewcommand\TheoremBackground{white}
+    \renewcommand\TheoremFrame{\PrimaryColor}
+  }%
+  {rbb}{% Red-Blue-Black theme (tricolor)
+    % main colors
+    \providecommand\PrimaryColor{blue}
+    \providecommand\SecondaryColor{red}
+    % for titles amd text
+    \renewcommand\TitleColor{\PrimaryColor}
+    \renewcommand\ListColor{\PrimaryColor}
+    \renewcommand\CaptionColor{\PrimaryColor}
+    \renewcommand\LinkColor{\SecondaryColor}
+    \renewcommand\MiscColor{\PrimaryColor}
+    % for boxes
+    \renewcommand\BoxBackground{white}
+    \renewcommand\BoxFrame{\PrimaryColor}
+    \renewcommand\BoxTitleBackground{\PrimaryColor}
+    \renewcommand\AlertColor{\SecondaryColor}
+    \renewcommand\AlertFrame{\SecondaryColor}
+    \renewcommand\AlertTitleBackground{\SecondaryColor}
+    % for theorems
+    \renewcommand\DefineFrame{black}
+    \renewcommand\TheoremBackground{white}
+    \renewcommand\TheoremFrame{\PrimaryColor}
+  }%
+  {bootstrap-v4}{% Bootstrap V4 theme
+    % for titles amd text
+    \renewcommand\TitleColor{black!85}
+    \renewcommand\ListColor{blue!50!cyan}
+    \renewcommand\CaptionColor{cyan!80!olive}
+    \renewcommand\LinkColor{blue!67!green!}
+    \renewcommand\MiscColor{blue!50!cyan}
+    % for boxes
+    \renewcommand\BoxBackground{cyan!20!white}
+    \renewcommand\BoxFrame{blue!30!teal}
+    \renewcommand\BoxTitleBackground{blue!55!cyan}
+    \renewcommand\BoxColor{blue!45!teal!80!black}
+    \renewcommand\AlertBackground{red!10!white}
+    \renewcommand\AlertColor{red!40!black!90!white}
+    \renewcommand\AlertFrame{red!75!teal}
+    \renewcommand\AlertTitleBackground{red!80!cyan}
+    % for theorems
+    \renewcommand\DefineBackground{green!8!white!94!black}
+    \renewcommand\DefineFrame{green!10!white!90!black}
+    \renewcommand\DefineColor{green!40!black!90!white}
+    \renewcommand\TheoremBackground{-blue!20!black!96!green}
+    \renewcommand\TheoremFrame{-blue!30!black!90!green}
+    \renewcommand\TheoremColor{red!57!green!90!black}
+  }%
+}[\ClassWarning{\styname}{Color scheme `\QYXF@colorscheme' not found, `basic' theme is used then.}]
 
 % tcolorbox 样式设定
 \tcbset{
   enhanced,
   noparskip,
   after = \noindent,
-  colback = \@box@background,
+  colback = \BoxBackground,
   title filled,
-  colbacktitle = \@box@title@background,
-  colframe = \@box@frame,
-  coltitle = \@box@title@color,
-  coltext = \@box@color,
+  colbacktitle = \BoxTitleBackground,
+  colframe = \BoxFrame,
+  coltitle = \BoxTitleColor,
+  coltext = \BoxColor,
   fonttitle = \bfseries,
   arc = 0.25em,
   boxrule = 0.5pt,
@@ -130,28 +203,28 @@
 }
 
 % 引导命令
-\newcommand{\exercise}[1]{\noindent\textbf{\color{\@misc@color}练习 #1}\ }
-\newcommand{\solve}{\noindent\textbf{\color{\@misc@color}\uline{解}}\ }
-\newcommand{\analysis}{\noindent\textbf{\color{\@misc@color}\uline{分析}}\ }
+\newcommand{\exercise}[1]{\noindent\textbf{\color{\MiscColor}练习 #1}\ }
+\newcommand{\solve}[1][解]{\noindent\textbf{\color{\MiscColor}#1}\ }
+\newcommand{\analysis}[1][分析]{\noindent\emph{\color{\MiscColor}#1}\ }
 
 % 定理环境及样式设定
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{define}{定义}
-\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame,coltext=\@theorem@color]}
+\BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\TheoremBackground,colframe=\TheoremFrame,coltext=\TheoremColor]}
 \AfterEndEnvironment{theorem}{\end{tcolorbox}}
-\BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\@theorem@background,colframe=\@theorem@frame,coltext=\@theorem@color]}
+\BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\TheoremBackground,colframe=\TheoremFrame,coltext=\TheoremColor]}
 \AfterEndEnvironment{lemma}{\end{tcolorbox}}
-\BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\@define@background,colframe=\@define@frame,coltext=\@define@color]}
+\BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\DefineBackground,colframe=\DefineFrame,coltext=\DefineColor]}
 \AfterEndEnvironment{define}{\end{tcolorbox}}
 \newtcolorbox{note}{title={注记}}
 \newtcolorbox{alert}{
   title = {警告},
-  colback = \@alert@background,
-  colframe = \@alert@frame,
-  colbacktitle = \@alert@title@background,
-  coltitle = \@alert@title@color,
-  coltext = \@alert@color
+  colback = \AlertBackground,
+  colframe = \AlertFrame,
+  colbacktitle = \AlertTitleBackground,
+  coltitle = \AlertTitleColor,
+  coltext = \AlertColor
 }
 
 % 页面设置
@@ -174,18 +247,21 @@
 }
 \hypersetup{
   colorlinks = true,
-  linkcolor = \@link@color,
-  anchorcolor = \@misc@color,
-  urlcolor = \@link@color,
-  citecolor = \@misc@color
+  linkcolor = \LinkColor,
+  anchorcolor = \MiscColor,
+  urlcolor = \LinkColor,
+  citecolor = \MiscColor
 }
 
 % 章节标题与目录样式
 \RequirePackage{titlesec,titletoc}
 \ctexset{section={name={\S,}}}
-\titleformat{\chapter}[block]{\color{\@title@color}\centering\bfseries\fontsize{2.25em}{1.2ex}}{\CTEXthechapter}{1em}{}
-\titleformat*{\section}{\color{\@title@color}\fontsize{1.75em}{1.225ex}\bfseries\centering}
-\titleformat*{\subsection}{\color{\@title@color}\fontsize{1.5em}{1.43ex}\bfseries}
+\titleformat{\chapter}[block]{\color{\TitleColor}\centering\bfseries\fontsize{2.25em}{1.2ex}}{\CTEXthechapter}{1em}{}
+\titleformat*{\section}{\color{\TitleColor}\fontsize{1.75em}{1.225ex}\bfseries\centering}
+\titleformat*{\subsection}{\color{\TitleColor}\fontsize{1.5em}{1.43ex}\bfseries}
+\titleformat*{\subsubsection}{\color{\TitleColor}\fontsize{1.25em}{1.4ex}\bfseries}
+\titleformat*{\paragraph}{\color{\TitleColor}\bfseries}
+\titleformat*{\subparagraph}{\color{\TitleColor}}
 \titlespacing{\chapter}{0pt}{*1}{*4}
 \titlecontents{chapter}[24pt]{\hspace{-2pc}\filright}
               {\normalsize\bfseries\contentspush{\thecontentslabel\ }}
@@ -200,7 +276,7 @@
 
 % 页眉页脚设置
 \newcommand{\footerbox}{%
-  {\color{\@misc@color}\bfseries\thepage}\\[-\baselineskip]
+  {\color{\MiscColor}\bfseries\thepage}\\[-\baselineskip]
   \uline{\hphantom{\@footorginfo}}\\
   \@footorginfo}
 \RequirePackage{fancyhdr}
@@ -218,20 +294,19 @@
 % 列表样式设置
 \RequirePackage[shortlabels]{enumitem}
 \RequirePackage{pifont}
-\newcommand{\arrowmark}{\ding{228}}
 \setlist{nosep, partopsep=0.5ex}
-\setlist[itemize,1]{label={\color{\@list@color}\arrowmark}, left=0.8em}
-\setlist[itemize,2]{label={\color{\@list@color}\ding{111}}, left=2.8em}
-\setlist[itemize,3]{label={\color{\@list@color}\ding{109}}, left=4.8em}
-\setlist[enumerate,1]{label={\color{\@list@color}\textbf{\arabic*}.}, left=0.8em}
-\setlist[enumerate,2]{label={\color{\@list@color}{\arabic*}.}, left=2.8em}
-\setlist[enumerate,3]{label={\color{\@list@color}({\arabic*})}, left=4.8em}
-\setlist[description]{style=nextline, font=\color{\@list@color}\bfseries}
+\setlist[itemize,1]{label={\color{\ListColor}\ding{228}}, left=0.8em}
+\setlist[itemize,2]{label={\color{\ListColor}\ding{111}}, left=2.8em}
+\setlist[itemize,3]{label={\color{\ListColor}\ding{109}}, left=4.8em}
+\setlist[enumerate,1]{label={\color{\ListColor}\textbf{\arabic*}.}, left=0.8em}
+\setlist[enumerate,2]{label={\color{\ListColor}{\arabic*}.}, left=2.8em}
+\setlist[enumerate,3]{label={\color{\ListColor}({\arabic*})}, left=4.8em}
+\setlist[description]{style=nextline, font=\color{\ListColor}\bfseries}
 
 % 参考文献定制
 \RequirePackage[square,numbers]{natbib}
-\renewcommand{\citenumfont}[1]{{\color{\@link@color}#1}}
-\renewcommand{\bibnumfmt}[1]{{\color{\@list@color}[#1]}}
+\renewcommand{\citenumfont}[1]{{\color{\LinkColor}#1}}
+\renewcommand{\bibnumfmt}[1]{{\color{\ListColor}[#1]}}
 \AtBeginEnvironment{thebibliography}{\addcontentsline{toc}{chapter}{\bibname}}
 
 % 杂项
@@ -274,12 +349,12 @@
   \begin{titlepage}
   \null
   \begin{center}\large
-  \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@box@frame},%
+  \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\BoxFrame},%
   left=20pt,top=1ex,bottom=1ex,after skip=0pt,no shadow]
-  {\color{\@title@color}\titlefont\@title}
-  \ifdefempty\@subtitle{}{\\[1ex]{\color{\@title@color}\subtitlefont\@subtitle}}
+  {\color{\TitleColor}\titlefont\@title}
+  \ifdefempty\@subtitle{}{\\[1ex]{\color{\TitleColor}\subtitlefont\@subtitle}}
   \end{tcolorbox}
-  \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\@title@color},%
+  \begin{tcolorbox}[blanker,borderline west={1mm}{0pt}{\TitleColor},%
   left=20pt,top=2ex,bottom=1ex,before skip=0pt,after skip=0pt,no shadow]
   {\authorfont\@author}\\\datefont\@date
   \end{tcolorbox}
@@ -328,6 +403,23 @@
 \cleardoublepage
 \pagestyle{fancy}
 \setcounter{page}{1}
+}
+
+% 修正配色方案重定义问题
+\newcommand{\selectcolor}{
+  \hypersetup{
+    linkcolor = \LinkColor,
+    anchorcolor = \MiscColor,
+    urlcolor = \LinkColor,
+    citecolor = \MiscColor
+  }
+  \tcbset{
+    colback = \BoxBackground,
+    colbacktitle = \BoxTitleBackground,
+    colframe = \BoxFrame,
+    coltitle = \BoxTitleColor,
+    coltext = \BoxColor
+  }
 }
 
 \endinput
