@@ -56,7 +56,7 @@
 
 % 浮动体（图表）处理
 \RequirePackage{graphicx}
-\graphicspath{{./figure/}{./pic/}{./image}}
+\graphicspath{{./figure/}{./pic/}{./image/}{./figures/}{./img/}}
 \setlength{\textfloatsep}{6pt plus 2pt minus 4pt}
 \setlength{\intextsep}{6pt plus 2pt minus 2pt}
 \RequirePackage{longtable,booktabs}
