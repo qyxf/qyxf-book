@@ -56,7 +56,7 @@
 
 % 浮动体（图表）处理
 \RequirePackage{graphicx}
-\graphicspath{{./figure/}{./pic/}{./image/}{./figures/}{./img/}}
+\graphicspath{{./figure/}{./pic/}{./image}}
 \setlength{\textfloatsep}{6pt plus 2pt minus 4pt}
 \setlength{\intextsep}{6pt plus 2pt minus 2pt}
 \RequirePackage{longtable,booktabs}
@@ -295,12 +295,12 @@
 \RequirePackage[shortlabels]{enumitem}
 \RequirePackage{pifont}
 \setlist{nosep, partopsep=0.5ex}
-\setlist[itemize,1]{label={\color{\ListColor}\ding{228}}, left=0.8em}
-\setlist[itemize,2]{label={\color{\ListColor}\ding{111}}, left=2.8em}
-\setlist[itemize,3]{label={\color{\ListColor}\ding{109}}, left=4.8em}
-\setlist[enumerate,1]{label={\color{\ListColor}\textbf{\arabic*}.}, left=0.8em}
-\setlist[enumerate,2]{label={\color{\ListColor}{\arabic*}.}, left=2.8em}
-\setlist[enumerate,3]{label={\color{\ListColor}({\arabic*})}, left=4.8em}
+\setlist[itemize,1]{label={\color{\ListColor}\ding{228}}, labelindent=0.6em, leftmargin=*}
+\setlist[itemize,2]{label={\color{\ListColor}\ding{111}}, labelindent=0.7em, leftmargin=*}
+\setlist[itemize,3]{label={\color{\ListColor}\ding{109}}, labelindent=0.6em, leftmargin=*}
+\setlist[enumerate,1]{label={\color{\ListColor}\textbf{\arabic*}.}, labelindent=0.8em, leftmargin=*}
+\setlist[enumerate,2]{label={\color{\ListColor}{\arabic*}.}, labelindent=0.7em, leftmargin=*}
+\setlist[enumerate,3]{label={\color{\ListColor}({\arabic*})}, labelindent=0.3em, leftmargin=*}
 \setlist[description]{style=nextline, font=\color{\ListColor}\bfseries}
 
 % 参考文献定制
@@ -384,7 +384,6 @@
   \pagestyle{fancy}}
 \AtBeginDocument{%
   \hypersetup{
-    pageanchor=false,
     pdfauthor=\@author,
     pdftitle=\@title,
     pdfsubject={\@author: \@title\ifdefempty{\@subtitle}{}{ - \textit{\@subtitle}}},
