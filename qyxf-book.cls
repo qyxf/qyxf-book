@@ -230,6 +230,16 @@
   coltext = \AlertColor
 }
 
+% 定理清除工具
+% source: <https://tex.stackexchange.com/questions/103013/is-there-a-renewtheorem-equivalent-of-renewcommand-using-amsthm-and-not-ntheo>
+\def\cleartheorem#1{%
+  \expandafter\let\csname#1\endcsname\relax
+  \expandafter\let\csname c@#1\endcsname\relax}
+% 将定义计数器归并到定理
+\newcommand{\resetdefine}{%
+  \cleartheorem{define}
+  \newtheorem{define}[theorem]{定义}}
+
 % 页面设置
 \RequirePackage{geometry}
 \geometry{margin = 1in}
