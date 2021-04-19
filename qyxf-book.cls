@@ -211,12 +211,15 @@
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{define}{定义}
+\newtheorem{corollary}[theorem]{推论}
 \BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\TheoremBackground,colframe=\TheoremFrame,coltext=\TheoremColor]}
 \AfterEndEnvironment{theorem}{\end{tcolorbox}}
 \BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\TheoremBackground,colframe=\TheoremFrame,coltext=\TheoremColor]}
 \AfterEndEnvironment{lemma}{\end{tcolorbox}}
 \BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\DefineBackground,colframe=\DefineFrame,coltext=\DefineColor]}
 \AfterEndEnvironment{define}{\end{tcolorbox}}
+\BeforeBeginEnvironment{corollary}{\begin{tcolorbox}[colback=\TheoremBackground,colframe=\TheoremFrame,coltext=\TheoremColor]}
+\AfterEndEnvironment{corollary}{\end{tcolorbox}}
 \newtcolorbox{note}{title={注记}}
 \newtcolorbox{alert}{
   title = {警告},
