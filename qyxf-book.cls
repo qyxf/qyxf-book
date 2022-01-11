@@ -269,10 +269,10 @@
 % 章节标题与目录样式
 \RequirePackage{titlesec,titletoc}
 \ctexset{section={name={\S,}}}
-\titleformat{\chapter}[block]{\color{\TitleColor}\centering\bfseries\fontsize{2.25em}{1.2ex}}{\CTEXthechapter}{1em}{}
-\titleformat*{\section}{\color{\TitleColor}\fontsize{1.75em}{1.225ex}\bfseries\centering}
-\titleformat*{\subsection}{\color{\TitleColor}\fontsize{1.5em}{1.43ex}\bfseries}
-\titleformat*{\subsubsection}{\color{\TitleColor}\fontsize{1.25em}{1.4ex}\bfseries}
+\titleformat{\chapter}[block]{\color{\TitleColor}\centering\bfseries\fontsize{2.25em}{1.2ex}\selectfont}{\CTEXthechapter}{1em}{}
+\titleformat*{\section}{\color{\TitleColor}\fontsize{1.75em}{1.225ex}\selectfont\bfseries\centering}
+\titleformat*{\subsection}{\color{\TitleColor}\fontsize{1.5em}{1.43ex}\selectfont\bfseries}
+\titleformat*{\subsubsection}{\color{\TitleColor}\fontsize{1.25em}{1.4ex}\selectfont\bfseries}
 \titleformat*{\paragraph}{\color{\TitleColor}\bfseries}
 \titleformat*{\subparagraph}{\color{\TitleColor}}
 \titlespacing{\chapter}{0pt}{*1}{*4}
