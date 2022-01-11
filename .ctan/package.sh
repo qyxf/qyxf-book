@@ -16,6 +16,6 @@ rm qyxf-book-doc.*
 cp qyxf-book.cls LICENSE qyxf-book/
 cp README.md qyxf-book/README.zh.md
 cp README.en.md qyxf-book/README.md
-cp -r figure/ qyxf-book/figure/
+cp -r figure/ qyxf-book/
 for file in $(ls qyxf-book); do dos2unix -o qyxf-book/$file; done
 zip -r qyxf-book.zip qyxf-book/

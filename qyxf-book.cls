@@ -211,12 +211,15 @@
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{define}{定义}
+\newtheorem{corollary}[theorem]{推论}
 \BeforeBeginEnvironment{theorem}{\begin{tcolorbox}[colback=\TheoremBackground,colframe=\TheoremFrame,coltext=\TheoremColor]}
 \AfterEndEnvironment{theorem}{\end{tcolorbox}}
 \BeforeBeginEnvironment{lemma}{\begin{tcolorbox}[colback=\TheoremBackground,colframe=\TheoremFrame,coltext=\TheoremColor]}
 \AfterEndEnvironment{lemma}{\end{tcolorbox}}
 \BeforeBeginEnvironment{define}{\begin{tcolorbox}[colback=\DefineBackground,colframe=\DefineFrame,coltext=\DefineColor]}
 \AfterEndEnvironment{define}{\end{tcolorbox}}
+\BeforeBeginEnvironment{corollary}{\begin{tcolorbox}[colback=\TheoremBackground,colframe=\TheoremFrame,coltext=\TheoremColor]}
+\AfterEndEnvironment{corollary}{\end{tcolorbox}}
 \newtcolorbox{note}{title={注记}}
 \newtcolorbox{alert}{
   title = {警告},
@@ -226,6 +229,16 @@
   coltitle = \AlertTitleColor,
   coltext = \AlertColor
 }
+
+% 定理清除工具
+% source: <https://tex.stackexchange.com/questions/103013/is-there-a-renewtheorem-equivalent-of-renewcommand-using-amsthm-and-not-ntheo>
+\def\cleartheorem#1{%
+  \expandafter\let\csname#1\endcsname\relax
+  \expandafter\let\csname c@#1\endcsname\relax}
+% 将定义计数器归并到定理
+\newcommand{\resetdefine}{%
+  \cleartheorem{define}
+  \newtheorem{define}[theorem]{定义}}
 
 % 页面设置
 \RequirePackage{geometry}
@@ -256,10 +269,10 @@
 % 章节标题与目录样式
 \RequirePackage{titlesec,titletoc}
 \ctexset{section={name={\S,}}}
-\titleformat{\chapter}[block]{\color{\TitleColor}\centering\bfseries\fontsize{2.25em}{1.2ex}}{\CTEXthechapter}{1em}{}
-\titleformat*{\section}{\color{\TitleColor}\fontsize{1.75em}{1.225ex}\bfseries\centering}
-\titleformat*{\subsection}{\color{\TitleColor}\fontsize{1.5em}{1.43ex}\bfseries}
-\titleformat*{\subsubsection}{\color{\TitleColor}\fontsize{1.25em}{1.4ex}\bfseries}
+\titleformat{\chapter}[block]{\color{\TitleColor}\centering\bfseries\fontsize{2.25em}{1.2ex}\selectfont}{\CTEXthechapter}{1em}{}
+\titleformat*{\section}{\color{\TitleColor}\fontsize{1.75em}{1.225ex}\selectfont\bfseries\centering}
+\titleformat*{\subsection}{\color{\TitleColor}\fontsize{1.5em}{1.43ex}\selectfont\bfseries}
+\titleformat*{\subsubsection}{\color{\TitleColor}\fontsize{1.25em}{1.4ex}\selectfont\bfseries}
 \titleformat*{\paragraph}{\color{\TitleColor}\bfseries}
 \titleformat*{\subparagraph}{\color{\TitleColor}}
 \titlespacing{\chapter}{0pt}{*1}{*4}
@@ -295,12 +308,12 @@
 \RequirePackage[shortlabels]{enumitem}
 \RequirePackage{pifont}
 \setlist{nosep, partopsep=0.5ex}
-\setlist[itemize,1]{label={\color{\ListColor}\ding{228}}, left=0.8em}
-\setlist[itemize,2]{label={\color{\ListColor}\ding{111}}, left=2.8em}
-\setlist[itemize,3]{label={\color{\ListColor}\ding{109}}, left=4.8em}
-\setlist[enumerate,1]{label={\color{\ListColor}\textbf{\arabic*}.}, left=0.8em}
-\setlist[enumerate,2]{label={\color{\ListColor}{\arabic*}.}, left=2.8em}
-\setlist[enumerate,3]{label={\color{\ListColor}({\arabic*})}, left=4.8em}
+\setlist[itemize,1]{label={\color{\ListColor}\ding{228}}, labelindent=0.6em, leftmargin=*}
+\setlist[itemize,2]{label={\color{\ListColor}\ding{111}}, labelindent=0.7em, leftmargin=*}
+\setlist[itemize,3]{label={\color{\ListColor}\ding{109}}, labelindent=0.6em, leftmargin=*}
+\setlist[enumerate,1]{label={\color{\ListColor}\textbf{\arabic*}.}, labelindent=0.8em, leftmargin=*}
+\setlist[enumerate,2]{label={\color{\ListColor}{\arabic*}.}, labelindent=0.7em, leftmargin=*}
+\setlist[enumerate,3]{label={\color{\ListColor}({\arabic*})}, labelindent=0.3em, leftmargin=*}
 \setlist[description]{style=nextline, font=\color{\ListColor}\bfseries}
 
 % 参考文献定制
@@ -384,7 +397,6 @@
   \pagestyle{fancy}}
 \AtBeginDocument{%
   \hypersetup{
-    pageanchor=false,
     pdfauthor=\@author,
     pdftitle=\@title,
     pdfsubject={\@author: \@title\ifdefempty{\@subtitle}{}{ - \textit{\@subtitle}}},
